@@ -58,8 +58,10 @@ button, a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(ellipse at center, #761e2e 0%, #4b101c 55%, #21070d 100%);
+  background-image: var(--wedding-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden;
   transition: opacity 1.2s ease, visibility 1.2s ease;
 }
@@ -246,24 +248,23 @@ button, a {
 ================================= */
 
 .photo-bg {
-  background:
-    linear-gradient(135deg, rgba(36,15,15,.78), rgba(59,30,25,.62)),
-    var(--wedding-bg);
+  background-image: var(--wedding-bg);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
 .light-bg {
-  background:
-    linear-gradient(135deg, rgba(248,241,229,.91), rgba(255,251,243,.86)),
-    var(--wedding-bg);
+  background-image: var(--wedding-bg);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
 .islamic-pattern {
+  display: none;
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -741,7 +742,7 @@ button, a {
   <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Open wedding invitation">
     <img
       class="envelope-image"
-      src="envelope-cover.png"
+      src="envelope-cover.jpeg"
       alt="Wedding invitation envelope"
     >
 
