@@ -13,7 +13,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
-
 <style>
 
 /* =====================================
@@ -29,6 +28,7 @@
     --warm-ivory: #FBF8F2;
     --text: #38271F;
     --muted: #806B5D;
+    --champagne: #D9BD91;
 }
 
 * {
@@ -51,191 +51,164 @@ body {
 section {
     position: relative;
     isolation: isolate;
+    overflow: hidden;
 }
 
+/* =====================================
+   FLOATING CHAMPAGNE PARTICLES
+===================================== */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.particle {
+    position: absolute;
+    bottom: -15px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #E8D3AD;
+    box-shadow: 0 0 10px 2px rgba(220,190,140,.5);
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(.5);
+        opacity: 0;
+    }
+    15% {
+        opacity: .75;
+    }
+    80% {
+        opacity: .5;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+    }
+}
 
 /* =====================================
-   OPENING THEATRE SCREEN
+   SOFT AMBIENT GLOW
+===================================== */
+
+.glow-effect {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: rgba(218,190,150,.13);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: -1;
+    animation: ambientGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes ambientGlow {
+    from {
+        transform: scale(.8);
+        opacity: .4;
+    }
+    to {
+        transform: scale(1.2);
+        opacity: .9;
+    }
+}
+
+/* =====================================
+   SHIMMER EFFECT
+===================================== */
+
+.shimmer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        110deg,
+        transparent 35%,
+        rgba(255,255,255,.07) 48%,
+        transparent 60%
+    );
+    background-size: 200% 100%;
+    animation: shimmerMove 9s linear infinite;
+}
+
+@keyframes shimmerMove {
+    from {
+        background-position: 200% 0;
+    }
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* =====================================
+   ENVELOPE OPENING SCREEN
 ===================================== */
 
 .opening {
     height: 100vh;
     min-height: 600px;
     width: 100%;
-    position: relative;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
     overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     background:
         radial-gradient(
             ellipse at center,
-            #B39A86,
-            #3B241C 75%
-        );
-}
-
-
-/* =====================================
-   TOP VELVET VALANCE
-===================================== */
-
-.valance {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 145px;
-    z-index: 12;
-
-    background:
-        radial-gradient(
-            ellipse 90px 80px at 50% 0%,
-            #B39A86 0%,
-            #795744 55%,
-            #3B241C 100%
+            #8B6F5B 0%,
+            #53382A 45%,
+            #24150F 100%
         );
 
-    background-size: 180px 130px;
-    background-repeat: repeat-x;
-
-    filter:
-        drop-shadow(0 12px 12px rgba(0,0,0,.45));
+    transition: opacity 1.2s ease, visibility 1.2s ease;
 }
 
-.valance::after {
+.opening.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.opening::before {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 28px;
-
-    background:
-        radial-gradient(
-            ellipse 90px 28px at 50% 0%,
-            #6D4B39 0%,
-            #3B241C 85%
-        );
-
-    background-size: 180px 28px;
-    background-repeat: repeat-x;
+    inset: 20px;
+    border: 1px solid rgba(243,238,230,.35);
+    pointer-events: none;
 }
 
-
-/* =====================================
-   VELVET CURTAINS
-===================================== */
-
-.curtain {
+.opening-glow {
     position: absolute;
-    top: 90px;
-    width: 52%;
-    height: calc(100% - 90px);
-    z-index: 10;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #21130E 0px,
-            #72513E 12px,
-            #382219 25px,
-            #9A7860 38px,
-            #3B241C 53px,
-            #24150F 70px
-        );
-
-    box-shadow:
-        inset 12px 0 25px rgba(255,255,255,.12),
-        inset -20px 0 35px rgba(0,0,0,.65),
-        0 0 35px rgba(0,0,0,.4);
-
-    transition:
-        transform 3s cubic-bezier(.77,0,.18,1);
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(230,203,165,.18);
+    filter: blur(90px);
+    animation: ambientGlow 6s ease-in-out infinite alternate;
 }
-
-
-/* VELVET FABRIC TEXTURE */
-
-.curtain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,.13) 0px,
-            transparent 9px,
-            rgba(0,0,0,.35) 20px,
-            transparent 36px
-        );
-
-    mix-blend-mode: overlay;
-}
-
-
-/* CURTAIN INNER EDGES */
-
-.curtain::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 10px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.5),
-            rgba(255,255,255,.12),
-            transparent
-        );
-}
-
-.left-curtain {
-    left: 0;
-    transform-origin: left center;
-}
-
-.left-curtain::after {
-    right: 0;
-}
-
-.right-curtain {
-    right: 0;
-    transform-origin: right center;
-}
-
-.right-curtain::after {
-    left: 0;
-}
-
-
-/* CURTAIN OPEN ANIMATION */
-
-.open .left-curtain {
-    transform: translateX(-105%);
-}
-
-.open .right-curtain {
-    transform: translateX(105%);
-}
-
-
-/* =====================================
-   OPENING TEXT
-===================================== */
 
 .open-content {
     position: absolute;
-    inset: 0;
-    z-index: 20;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    top: 12%;
+    width: 100%;
     text-align: center;
-    transition: opacity .8s ease;
+    z-index: 15;
+    padding: 20px;
+    transition: opacity .7s ease;
 }
 
 .open-content.hide {
@@ -243,23 +216,215 @@ section {
     pointer-events: none;
 }
 
-.open-box {
-    padding: 45px 28px;
-
-    border: 1px solid rgba(243,238,230,.55);
-
-    background: rgba(36,21,15,.55);
-    backdrop-filter: blur(5px);
-
-    box-shadow: 0 15px 50px rgba(0,0,0,.25);
-}
-
 .open-small {
     color: var(--ivory);
     font-family: "Montserrat", sans-serif;
     font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.open-title {
+    font-family: "Pinyon Script", cursive;
+    font-size: clamp(48px, 10vw, 72px);
+    color: var(--ivory);
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+/* ENVELOPE */
+
+.envelope-scene {
+    width: min(340px, 84vw);
+    height: 250px;
+    position: relative;
+    margin-top: 55px;
+    perspective: 1000px;
+}
+
+.envelope {
+    width: 100%;
+    height: 190px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #E8D7BC;
+    border-radius: 3px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.4);
+    z-index: 3;
+}
+
+/* Envelope back */
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,#F9F0DF,#D7C1A0);
+    z-index: 1;
+}
+
+/* Envelope card */
+
+.invite-card {
+    position: absolute;
+    width: 82%;
+    height: 205px;
+    left: 9%;
+    bottom: 15px;
+
+    background: var(--warm-ivory);
+    color: var(--espresso);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+
+    transition: bottom 1.5s ease, transform 1.5s ease;
+}
+
+.card-label {
+    font-family: "Montserrat", sans-serif;
+    font-size: 8px;
+    letter-spacing: 3px;
+}
+
+.card-names {
+    font-family: "Pinyon Script", cursive;
+    font-size: 40px;
+    margin: 13px 0;
+}
+
+.card-date {
+    font-family: "Montserrat", sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+/* Envelope front */
+
+.envelope-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg,#F2E5D0,#D9C4A4);
+    clip-path: polygon(0 100%,50% 40%,100% 100%);
+    z-index: 5;
+}
+
+/* Envelope flap */
+
+.envelope-flap {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg,#FBF4E7,#D7C1A0);
+    clip-path: polygon(0 0,100% 0,50% 70%);
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    transition: transform 1.2s ease;
+    z-index: 7;
+}
+
+/* Wax seal */
+
+.wax-seal {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    left: 50%;
+    top: 85px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 35% 30%,#A17B55,#513323 75%);
+
+    color: #F0D9B4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Pinyon Script", cursive;
+    font-size: 25px;
+
+    z-index: 9;
+    box-shadow: 0 5px 15px rgba(0,0,0,.35);
+    transition: opacity .5s ease, transform .5s ease;
+}
+
+/* OPEN ANIMATION */
+
+.opening.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.opening.open .invite-card {
+    bottom: 140px;
+    transform: scale(1.02);
+}
+
+.opening.open .wax-seal {
+    opacity: 0;
+    transform: translateX(-50%) scale(.5);
+}
+
+.open-btn {
+    position: absolute;
+    bottom: 12%;
+    padding: 15px 32px;
+
+    cursor: pointer;
+
+    border: 1px solid var(--champagne);
+    background: transparent;
+
+    color: var(--ivory);
+
+    font: 500 10px "Montserrat", sans-serif;
     letter-spacing: 4px;
-    margin-bottom: 25px;
+
+    transition: .35s;
+    z-index: 15;
+}
+
+.open-btn:hover {
+    background: var(--champagne);
+    color: var(--espresso);
+}
+
+.tap-hint {
+    position: absolute;
+    bottom: 5%;
+    font: 9px "Montserrat", sans-serif;
+    letter-spacing: 3px;
+    color: #E5D9CC;
+    z-index: 10;
+}
+
+/* =====================================
+   COMMON SECTION EFFECTS
+===================================== */
+
+.section-title {
+    color: #E5D9CC;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 4px;
+    font-size: 10px;
+    margin-bottom: 30px;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .open-btn,
@@ -282,14 +447,12 @@ section {
     transition: .35s;
 }
 
-.open-btn:hover,
 .reveal-btn:hover,
 .map-btn:hover {
     background: var(--ivory);
     color: var(--espresso);
     transform: translateY(-2px);
 }
-
 
 /* =====================================
    HERO PAGE
@@ -313,19 +476,13 @@ section {
             rgba(36,21,15,.60)
         ),
         url("hero-bg.png") center/cover no-repeat,
-        linear-gradient(
-            135deg,
-            #24150F,
-            #72513E,
-            #382219
-        );
+        linear-gradient(135deg,#24150F,#72513E,#382219);
 }
 
 .hero::before {
     content: "";
     position: absolute;
     inset: 18px;
-
     border: 1px solid rgba(243,238,230,.38);
     pointer-events: none;
 }
@@ -333,7 +490,6 @@ section {
 .hero-content {
     position: relative;
     z-index: 1;
-
     animation: fadeUp 1.8s ease;
 }
 
@@ -345,21 +501,15 @@ section {
     margin-bottom: 42px;
 }
 
-
-/* COUPLE NAMES - CALLIGRAPHY */
-
 .couple-name {
     font-family: "Pinyon Script", cursive;
     font-size: clamp(85px,17vw,155px);
     font-weight: 400;
-
     line-height: 1.25;
     letter-spacing: 1px;
-
     color: var(--ivory);
 
-    text-shadow:
-        0 4px 24px rgba(0,0,0,.28);
+    text-shadow: 0 4px 24px rgba(0,0,0,.28);
 }
 
 .weds {
@@ -375,24 +525,21 @@ section {
     height: 1px;
     margin: 35px auto;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #D6C4B3,
-            transparent
-        );
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #D6C4B3,
+        transparent
+    );
 }
 
 .scroll-text {
     margin-top: 55px;
     color: #E5D9CC;
-
     font-family: "Montserrat", sans-serif;
     letter-spacing: 3px;
     font-size: 9px;
 }
-
 
 /* =====================================
    INVITATION PAGE
@@ -421,7 +568,6 @@ section {
 
     padding: 65px 38px;
     position: relative;
-
     text-align: center;
 
     background: rgba(251,248,242,.90);
@@ -437,29 +583,18 @@ section {
 .card::after {
     content: "";
     position: absolute;
-
     left: 18px;
     right: 18px;
     height: 1px;
-
     background: rgba(59,36,28,.28);
 }
 
-.card::before {
-    top: 17px;
-}
-
-.card::after {
-    bottom: 17px;
-}
-
-
-/* ARABIC TEXT */
+.card::before { top: 17px; }
+.card::after { bottom: 17px; }
 
 .arabic {
     font-family: "Amiri", serif;
     font-size: clamp(32px,7vw,48px);
-
     color: var(--espresso);
     margin-bottom: 18px;
 }
@@ -468,10 +603,8 @@ section {
     font: 400 9px "Montserrat", sans-serif;
     letter-spacing: 1.5px;
     line-height: 1.9;
-
     color: var(--muted);
     margin-bottom: 38px;
-
     text-transform: uppercase;
 }
 
@@ -482,16 +615,11 @@ section {
     margin-bottom: 30px;
 }
 
-
-/* INVITATION NAMES */
-
 .person-name {
     font-family: "Pinyon Script", cursive;
     font-size: clamp(65px,12vw,100px);
     font-weight: 400;
-
     line-height: 1.25;
-
     color: var(--espresso);
     margin: 13px 0;
 }
@@ -504,22 +632,18 @@ section {
 
 .with {
     font: 400 10px "Montserrat", sans-serif;
-
     letter-spacing: 5px;
     color: var(--mocha);
-
     margin: 26px 0;
 }
 
 .invite-text {
     max-width: 520px;
     margin: 35px auto 0;
-
     font-size: 20px;
     font-style: italic;
     line-height: 1.7;
 }
-
 
 /* =====================================
    DATE PAGE
@@ -543,12 +667,7 @@ section {
             rgba(36,21,15,.76)
         ),
         url("date-bg.jpeg") center/cover no-repeat,
-        linear-gradient(
-            135deg,
-            #24150F,
-            #654735,
-            #2B1A13
-        );
+        linear-gradient(135deg,#24150F,#654735,#2B1A13);
 }
 
 .date-content {
@@ -556,22 +675,10 @@ section {
     max-width: 700px;
 }
 
-.section-title {
-    color: #E5D9CC;
-    font-family: "Montserrat", sans-serif;
-    letter-spacing: 4px;
-    font-size: 10px;
-    margin-bottom: 30px;
-}
-
-
-/* HIDDEN DATE */
-
 .hidden-date {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-
     transition: all 1.2s ease;
 }
 
@@ -583,7 +690,6 @@ section {
 
 .date-big {
     font: 400 clamp(30px,7vw,54px) "Bodoni Moda", serif;
-
     color: var(--ivory);
     margin-bottom: 15px;
     letter-spacing: 1px;
@@ -591,7 +697,6 @@ section {
 
 .day {
     font: 400 10px "Montserrat", sans-serif;
-
     color: #D6C4B3;
     letter-spacing: 6px;
     margin-bottom: 25px;
@@ -600,11 +705,9 @@ section {
 .time {
     font-size: 22px;
     font-style: italic;
-
     margin-bottom: 45px;
     color: var(--ivory);
 }
-
 
 /* =====================================
    COUNTDOWN
@@ -618,25 +721,21 @@ section {
 
 .time-box {
     padding: 20px 5px;
-
     border: 1px solid rgba(243,238,230,.45);
     background: rgba(36,21,15,.35);
 }
 
 .time-box span {
     display: block;
-
     font: 400 30px "Bodoni Moda", serif;
     color: var(--ivory);
 }
 
 .time-box small {
     font: 400 8px "Montserrat", sans-serif;
-
     letter-spacing: 1px;
     color: #E5D9CC;
 }
-
 
 /* =====================================
    VENUE PAGE
@@ -658,18 +757,12 @@ section {
             rgba(243,238,230,.80)
         ),
         url("venue-bg.jpeg") center/cover no-repeat,
-        linear-gradient(
-            135deg,
-            #E5D9CC,
-            #FBF8F2,
-            #D9C9BA
-        );
+        linear-gradient(135deg,#E5D9CC,#FBF8F2,#D9C9BA);
 }
 
 .venue-card {
     max-width: 650px;
     padding: 50px 35px;
-
     background: rgba(251,248,242,.75);
     border: 1px solid rgba(59,36,28,.45);
 }
@@ -681,7 +774,6 @@ section {
 
 .venue-name {
     font: 400 clamp(28px,6vw,48px) "Bodoni Moda", serif;
-
     color: var(--espresso);
     margin-bottom: 22px;
 }
@@ -692,7 +784,6 @@ section {
     line-height: 1.7;
     margin-bottom: 35px;
 }
-
 
 /* =====================================
    FINAL PAGE
@@ -716,12 +807,7 @@ section {
             rgba(36,21,15,.70)
         ),
         url("final-bg.jpeg") center/cover no-repeat,
-        linear-gradient(
-            135deg,
-            #24150F,
-            #654735,
-            #2B1A13
-        );
+        linear-gradient(135deg,#24150F,#654735,#2B1A13);
 }
 
 .final-text {
@@ -732,26 +818,19 @@ section {
 
 .final-text p {
     color: var(--ivory);
-
     font-size: 22px;
     font-style: italic;
     line-height: 1.8;
 }
 
-
-/* FINAL COUPLE NAMES */
-
 .final-names {
     font-family: "Pinyon Script", cursive;
-
     font-size: clamp(70px,14vw,115px);
     font-weight: 400;
-
     color: var(--ivory);
     margin-top: 35px;
     line-height: 1.3;
 }
-
 
 /* =====================================
    ANIMATIONS
@@ -762,13 +841,11 @@ section {
         opacity: 0;
         transform: translateY(30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-
 
 /* =====================================
    MOBILE RESPONSIVE
@@ -780,13 +857,17 @@ section {
         min-height: 550px;
     }
 
-    .valance {
-        height: 110px;
+    .open-content {
+        top: 10%;
     }
 
-    .curtain {
-        top: 75px;
-        height: calc(100% - 75px);
+    .envelope-scene {
+        margin-top: 65px;
+        transform: scale(.92);
+    }
+
+    .open-btn {
+        bottom: 11%;
     }
 
     .card {
@@ -828,7 +909,6 @@ section {
     .final-names {
         font-size: 75px;
     }
-
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -844,40 +924,76 @@ section {
 </style>
 </head>
 
-
 <body>
 
+<!-- FLOATING PARTICLES -->
+<div id="particles"></div>
 
 <!-- =====================================
-     OPENING CURTAINS
+     ENVELOPE OPENING
 ===================================== -->
 
 <div class="opening" id="opening">
 
-    <div class="valance"></div>
-
-    <div class="curtain left-curtain"></div>
-    <div class="curtain right-curtain"></div>
+    <div class="opening-glow"></div>
 
     <div class="open-content" id="openContent">
 
-        <div class="open-box">
+        <p class="open-small">
+            A SPECIAL INVITATION
+        </p>
 
-            <p class="open-small">
-                YOU ARE INVITED
-            </p>
+        <h1 class="open-title">
+            With love & blessings
+        </h1>
 
-            <button
-                class="open-btn"
-                onclick="openInvitation()">
+    </div>
 
-                ✦ TAP TO OPEN ✦
+    <div class="envelope-scene">
 
-            </button>
+        <div class="invite-card">
+
+            <span class="card-label">
+                THE WEDDING INVITATION
+            </span>
+
+            <div class="card-names">
+                Aysha & Shahrukh
+            </div>
+
+            <span class="card-date">
+                13 DECEMBER 2026
+            </span>
+
+        </div>
+
+        <div class="envelope">
+
+            <div class="envelope-back"></div>
+
+            <div class="envelope-front"></div>
+
+            <div class="envelope-flap"></div>
+
+            <div class="wax-seal">
+                A&S
+            </div>
 
         </div>
 
     </div>
+
+    <button
+        class="open-btn"
+        onclick="openInvitation()">
+
+        ✦ OPEN INVITATION ✦
+
+    </button>
+
+    <p class="tap-hint">
+        A MOMENT TO REMEMBER
+    </p>
 
 </div>
 
@@ -887,6 +1003,9 @@ section {
 ===================================== -->
 
 <section class="hero">
+
+    <div class="glow-effect"></div>
+    <div class="shimmer"></div>
 
     <div class="hero-content">
 
@@ -923,7 +1042,9 @@ section {
 
 <section class="invitation">
 
-    <div class="card">
+    <div class="shimmer"></div>
+
+    <div class="card reveal">
 
         <div class="arabic">
             بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
@@ -978,7 +1099,10 @@ section {
 
 <section class="date-section">
 
-    <div class="date-content">
+    <div class="glow-effect"></div>
+    <div class="shimmer"></div>
+
+    <div class="date-content reveal">
 
         <p class="section-title">
             OUR SPECIAL DAY
@@ -1047,7 +1171,9 @@ section {
 
 <section class="venue-section">
 
-    <div class="venue-card">
+    <div class="shimmer"></div>
+
+    <div class="venue-card reveal">
 
         <div class="pin">
             ⌖
@@ -1087,7 +1213,10 @@ section {
 
 <section class="final-section">
 
-    <div class="final-text">
+    <div class="glow-effect"></div>
+    <div class="shimmer"></div>
+
+    <div class="final-text reveal">
 
         <p>
             Your presence and blessings would mean
@@ -1110,46 +1239,80 @@ section {
 
 <script>
 
-
-/* OPEN CURTAINS */
+/* =====================================
+   OPEN ENVELOPE
+===================================== */
 
 function openInvitation() {
 
-    document
-        .getElementById("opening")
-        .classList
-        .add("open");
+    const opening = document.getElementById("opening");
+
+    opening.classList.add("open");
 
     document
         .getElementById("openContent")
-        .classList
-        .add("hide");
+        .classList.add("hide");
 
     setTimeout(() => {
-
-        document
-            .getElementById("opening")
-            .style
-            .display = "none";
-
+        opening.classList.add("hidden");
     }, 3200);
+
+    setTimeout(() => {
+        opening.style.display = "none";
+    }, 4500);
 
 }
 
 
-/* REVEAL WEDDING DATE */
+/* =====================================
+   REVEAL WEDDING DATE
+===================================== */
 
 function revealDate() {
 
     document
         .getElementById("dateReveal")
-        .classList
-        .add("show");
+        .classList.add("show");
 
 }
 
 
-/* WEDDING COUNTDOWN */
+/* =====================================
+   FLOATING PARTICLES
+===================================== */
+
+const particleContainer =
+    document.getElementById("particles");
+
+for (let i = 0; i < 35; i++) {
+
+    const particle = document.createElement("span");
+
+    particle.className = "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+        (9 + Math.random() * 12) + "s";
+
+    particle.style.animationDelay =
+        (Math.random() * 12) + "s";
+
+    const size =
+        (2 + Math.random() * 3) + "px";
+
+    particle.style.width = size;
+    particle.style.height = size;
+
+    particleContainer.appendChild(particle);
+
+}
+
+
+/* =====================================
+   WEDDING COUNTDOWN
+===================================== */
 
 const weddingDate = new Date(
     "December 13, 2026 11:00:00 GMT+0530"
@@ -1209,13 +1372,37 @@ function updateCountdown() {
 
 }
 
-
-/* START COUNTDOWN */
-
 updateCountdown();
 
 setInterval(updateCountdown, 1000);
 
+
+/* =====================================
+   SCROLL REVEAL ANIMATION
+===================================== */
+
+const revealObserver = new IntersectionObserver(
+    (entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.15
+    }
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+    revealObserver.observe(element);
+});
 
 </script>
 
