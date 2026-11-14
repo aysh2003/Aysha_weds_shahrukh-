@@ -105,7 +105,33 @@ button, a {
   transition: opacity 1.1s ease, transform 1.1s ease;
 }
 
-/* Decorative paper flap */
+/* Blank invitation card that rises out */
+.inner-letter {
+  position: absolute;
+  z-index: 2;
+  left: 9%;
+  right: 9%;
+  top: 18%;
+  height: 72%;
+  border: 1px solid rgba(198, 168, 117, .8);
+  background: linear-gradient(145deg, #fffdf7, #f3eadb);
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  opacity: 0;
+  transform: translateY(22%) scale(.94);
+  transition:
+    opacity .7s ease .18s,
+    transform 1.15s cubic-bezier(.2,.75,.25,1) .12s;
+  pointer-events: none;
+}
+
+.inner-letter::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(198, 168, 117, .45);
+}
+
+/* Envelope flap */
 .envelope-flap {
   position: absolute;
   z-index: 3;
@@ -113,8 +139,7 @@ button, a {
   right: 0;
   top: 0;
   height: 51%;
-  background:
-    linear-gradient(145deg, #fffaf0, #e9ddc9);
+  background: linear-gradient(145deg, #fffaf0, #e9ddc9);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   transform: rotateX(0deg);
@@ -180,10 +205,15 @@ button, a {
   50% { opacity: 1; }
 }
 
-/* Opening animation */
+/* Envelope opening animation */
 .opening.open .envelope-flap {
   transform: rotateX(180deg);
   z-index: 0;
+}
+
+.opening.open .inner-letter {
+  opacity: 1;
+  transform: translateY(-12%) scale(1);
 }
 
 .opening.open .wax-seal {
@@ -715,6 +745,7 @@ button, a {
       alt="Wedding invitation envelope"
     >
 
+    <div class="inner-letter" aria-hidden="true"></div>
     <div class="envelope-flap"></div>
 
     <div class="wax-seal">A&amp;S</div>
