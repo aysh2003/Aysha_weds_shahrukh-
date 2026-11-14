@@ -13,11 +13,12 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
+
 <style>
 
-/* =================================
-   COLOUR THEME
-================================= */
+/* =====================================
+   COLOUR PALETTE
+===================================== */
 
 :root {
     --espresso: #3B241C;
@@ -52,104 +53,164 @@ section {
     isolation: isolate;
 }
 
-/* =================================
-   OPENING SCREEN
-================================= */
+
+/* =====================================
+   OPENING THEATRE SCREEN
+===================================== */
 
 .opening {
     height: 100vh;
-    min-height: 560px;
+    min-height: 600px;
     width: 100%;
     position: relative;
     overflow: hidden;
 
     background:
-        linear-gradient(rgba(36,21,15,.3),rgba(36,21,15,.3)),
-        url("images/curtain-bg.jpg") center/cover no-repeat,
-        linear-gradient(135deg,#24150F,#8B6F5B,#24150F);
+        radial-gradient(
+            ellipse at center,
+            #B39A86,
+            #3B241C 75%
+        );
 }
 
-.opening::before {
-    content: "";
+
+/* =====================================
+   TOP VELVET VALANCE
+===================================== */
+
+.valance {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 145px;
+    z-index: 12;
 
     background:
         radial-gradient(
-            ellipse at center,
-            rgba(243,238,230,.2),
-            transparent 55%
+            ellipse 90px 80px at 50% 0%,
+            #B39A86 0%,
+            #795744 55%,
+            #3B241C 100%
         );
 
-    animation: glow 4s infinite alternate;
+    background-size: 180px 130px;
+    background-repeat: repeat-x;
+
+    filter:
+        drop-shadow(0 12px 12px rgba(0,0,0,.45));
 }
 
-/* =================================
-   ESPRESSO VELVET CURTAINS
-================================= */
+.valance::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 28px;
+
+    background:
+        radial-gradient(
+            ellipse 90px 28px at 50% 0%,
+            #6D4B39 0%,
+            #3B241C 85%
+        );
+
+    background-size: 180px 28px;
+    background-repeat: repeat-x;
+}
+
+
+/* =====================================
+   VELVET CURTAINS
+===================================== */
 
 .curtain {
     position: absolute;
-    top: 0;
-    width: 53%;
-    height: 100%;
+    top: 90px;
+    width: 52%;
+    height: calc(100% - 90px);
     z-index: 10;
 
     background:
         repeating-linear-gradient(
             90deg,
-            rgba(255,255,255,.10) 0 7px,
-            rgba(0,0,0,.18) 14px 25px,
-            rgba(255,255,255,.035) 34px 43px,
-            rgba(0,0,0,.23) 52px 66px
-        ),
-        linear-gradient(
-            90deg,
-            #21130E,
-            #503426 18%,
-            #795A47 34%,
-            #382219 50%,
-            #72513E 68%,
-            #382219 86%,
-            #1E120D
+            #21130E 0px,
+            #72513E 12px,
+            #382219 25px,
+            #9A7860 38px,
+            #3B241C 53px,
+            #24150F 70px
         );
 
     box-shadow:
-        inset 18px 0 35px rgba(255,255,255,.06),
-        inset -22px 0 45px rgba(0,0,0,.55),
-        0 0 40px rgba(0,0,0,.45);
+        inset 12px 0 25px rgba(255,255,255,.12),
+        inset -20px 0 35px rgba(0,0,0,.65),
+        0 0 35px rgba(0,0,0,.4);
 
     transition:
-        transform 2.5s cubic-bezier(.77,0,.18,1);
+        transform 3s cubic-bezier(.77,0,.18,1);
 }
+
+
+/* VELVET FABRIC TEXTURE */
+
+.curtain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.13) 0px,
+            transparent 9px,
+            rgba(0,0,0,.35) 20px,
+            transparent 36px
+        );
+
+    mix-blend-mode: overlay;
+}
+
+
+/* CURTAIN INNER EDGES */
 
 .curtain::after {
     content: "";
     position: absolute;
     top: 0;
-    width: 100%;
-    height: 12px;
+    width: 10px;
+    height: 100%;
 
     background:
         linear-gradient(
             90deg,
-            #2B1A13,
-            #A88E78,
-            #4A3024,
-            #B39A86,
-            #2B1A13
+            rgba(0,0,0,.5),
+            rgba(255,255,255,.12),
+            transparent
         );
 }
 
 .left-curtain {
     left: 0;
-    transform-origin: left;
+    transform-origin: left center;
+}
+
+.left-curtain::after {
+    right: 0;
 }
 
 .right-curtain {
     right: 0;
-    transform-origin: right;
+    transform-origin: right center;
 }
+
+.right-curtain::after {
+    left: 0;
+}
+
+
+/* CURTAIN OPEN ANIMATION */
 
 .open .left-curtain {
     transform: translateX(-105%);
@@ -159,21 +220,22 @@ section {
     transform: translateX(105%);
 }
 
-/* =================================
-   TAP TO OPEN
-================================= */
+
+/* =====================================
+   OPENING TEXT
+===================================== */
 
 .open-content {
     position: absolute;
-    z-index: 30;
     inset: 0;
+    z-index: 20;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
 
-    transition: opacity .6s ease;
+    text-align: center;
+    transition: opacity .8s ease;
 }
 
 .open-content.hide {
@@ -186,25 +248,17 @@ section {
 
     border: 1px solid rgba(243,238,230,.55);
 
-    background: rgba(36,21,15,.48);
+    background: rgba(36,21,15,.55);
     backdrop-filter: blur(5px);
 
     box-shadow: 0 15px 50px rgba(0,0,0,.25);
 }
 
-.open-small,
-.eyebrow,
-.section-title,
-.weds,
-.scroll-text {
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 10px;
-}
-
 .open-small {
     color: var(--ivory);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
     margin-bottom: 25px;
 }
 
@@ -236,9 +290,10 @@ section {
     transform: translateY(-2px);
 }
 
-/* =================================
-   HERO BACKGROUND
-================================= */
+
+/* =====================================
+   HERO PAGE
+===================================== */
 
 .hero {
     min-height: 100vh;
@@ -254,8 +309,8 @@ section {
 
     background:
         linear-gradient(
-            rgba(36,21,15,.58),
-            rgba(36,21,15,.62)
+            rgba(36,21,15,.50),
+            rgba(36,21,15,.60)
         ),
         url("images/hero-bg.jpg") center/cover no-repeat,
         linear-gradient(
@@ -283,18 +338,20 @@ section {
 }
 
 .eyebrow {
+    font-family: "Montserrat", sans-serif;
     color: #E5D9CC;
+    letter-spacing: 3px;
+    font-size: 10px;
     margin-bottom: 42px;
 }
 
-/* BRIDE AND GROOM CALLIGRAPHY */
+
+/* COUPLE NAMES - CALLIGRAPHY */
 
 .couple-name {
     font-family: "Pinyon Script", cursive;
-
     font-size: clamp(85px,17vw,155px);
     font-weight: 400;
-    font-style: normal;
 
     line-height: 1.25;
     letter-spacing: 1px;
@@ -306,9 +363,11 @@ section {
 }
 
 .weds {
+    font-family: "Montserrat", sans-serif;
     margin: 20px 0;
     color: #D6C4B3;
     letter-spacing: 7px;
+    font-size: 12px;
 }
 
 .hero-line {
@@ -328,12 +387,16 @@ section {
 .scroll-text {
     margin-top: 55px;
     color: #E5D9CC;
+
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 3px;
     font-size: 9px;
 }
 
-/* =================================
+
+/* =====================================
    INVITATION PAGE
-================================= */
+===================================== */
 
 .invitation {
     min-height: 100vh;
@@ -345,8 +408,8 @@ section {
 
     background:
         linear-gradient(
-            rgba(243,238,230,.78),
-            rgba(243,238,230,.86)
+            rgba(243,238,230,.65),
+            rgba(243,238,230,.75)
         ),
         url("images/invitation-bg.jpg") center/cover no-repeat,
         var(--ivory);
@@ -361,7 +424,7 @@ section {
 
     text-align: center;
 
-    background: rgba(251,248,242,.88);
+    background: rgba(251,248,242,.90);
 
     border: 1px solid var(--espresso);
     outline: 1px solid rgba(59,36,28,.35);
@@ -390,7 +453,8 @@ section {
     bottom: 17px;
 }
 
-/* ARABIC */
+
+/* ARABIC TEXT */
 
 .arabic {
     font-family: "Amiri", serif;
@@ -411,15 +475,6 @@ section {
     text-transform: uppercase;
 }
 
-.blessing,
-.invite-text,
-.parents,
-.venue-text,
-.final-text p {
-    font-family: "Cormorant Garamond", serif;
-    color: var(--text);
-}
-
 .blessing {
     font-size: 20px;
     font-style: italic;
@@ -427,14 +482,13 @@ section {
     margin-bottom: 30px;
 }
 
-/* INVITATION NAMES - CALLIGRAPHY */
+
+/* INVITATION NAMES */
 
 .person-name {
     font-family: "Pinyon Script", cursive;
-
     font-size: clamp(65px,12vw,100px);
     font-weight: 400;
-    font-style: normal;
 
     line-height: 1.25;
 
@@ -466,9 +520,10 @@ section {
     line-height: 1.7;
 }
 
-/* =================================
+
+/* =====================================
    DATE PAGE
-================================= */
+===================================== */
 
 .date-section {
     min-height: 100vh;
@@ -484,7 +539,7 @@ section {
 
     background:
         linear-gradient(
-            rgba(36,21,15,.72),
+            rgba(36,21,15,.70),
             rgba(36,21,15,.76)
         ),
         url("images/date-bg.jpg") center/cover no-repeat,
@@ -503,8 +558,14 @@ section {
 
 .section-title {
     color: #E5D9CC;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 4px;
+    font-size: 10px;
     margin-bottom: 30px;
 }
+
+
+/* HIDDEN DATE */
 
 .hidden-date {
     max-height: 0;
@@ -544,7 +605,10 @@ section {
     color: var(--ivory);
 }
 
-/* COUNTDOWN */
+
+/* =====================================
+   COUNTDOWN
+===================================== */
 
 .countdown {
     display: grid;
@@ -573,9 +637,10 @@ section {
     color: #E5D9CC;
 }
 
-/* =================================
+
+/* =====================================
    VENUE PAGE
-================================= */
+===================================== */
 
 .venue-section {
     min-height: 100vh;
@@ -589,8 +654,8 @@ section {
 
     background:
         linear-gradient(
-            rgba(243,238,230,.76),
-            rgba(243,238,230,.84)
+            rgba(243,238,230,.70),
+            rgba(243,238,230,.80)
         ),
         url("images/venue-bg.jpg") center/cover no-repeat,
         linear-gradient(
@@ -605,14 +670,13 @@ section {
     max-width: 650px;
     padding: 50px 35px;
 
-    background: rgba(251,248,242,.68);
+    background: rgba(251,248,242,.75);
     border: 1px solid rgba(59,36,28,.45);
 }
 
 .pin {
     font-size: 34px;
     margin-bottom: 20px;
-    filter: grayscale(1);
 }
 
 .venue-name {
@@ -629,9 +693,10 @@ section {
     margin-bottom: 35px;
 }
 
-/* =================================
+
+/* =====================================
    FINAL PAGE
-================================= */
+===================================== */
 
 .final-section {
     min-height: 100vh;
@@ -647,8 +712,8 @@ section {
 
     background:
         linear-gradient(
-            rgba(36,21,15,.65),
-            rgba(36,21,15,.72)
+            rgba(36,21,15,.60),
+            rgba(36,21,15,.70)
         ),
         url("images/final-bg.jpg") center/cover no-repeat,
         linear-gradient(
@@ -673,7 +738,8 @@ section {
     line-height: 1.8;
 }
 
-/* FINAL NAMES - CALLIGRAPHY */
+
+/* FINAL COUPLE NAMES */
 
 .final-names {
     font-family: "Pinyon Script", cursive;
@@ -686,9 +752,10 @@ section {
     line-height: 1.3;
 }
 
-/* =================================
+
+/* =====================================
    ANIMATIONS
-================================= */
+===================================== */
 
 @keyframes fadeUp {
     from {
@@ -702,21 +769,25 @@ section {
     }
 }
 
-@keyframes glow {
-    from {
-        opacity: .45;
-    }
 
-    to {
-        opacity: 1;
-    }
-}
-
-/* =================================
+/* =====================================
    MOBILE RESPONSIVE
-================================= */
+===================================== */
 
 @media(max-width:600px) {
+
+    .opening {
+        min-height: 550px;
+    }
+
+    .valance {
+        height: 110px;
+    }
+
+    .curtain {
+        top: 75px;
+        height: calc(100% - 75px);
+    }
 
     .card {
         padding: 55px 22px;
@@ -757,6 +828,7 @@ section {
     .final-names {
         font-size: 75px;
     }
+
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -772,13 +844,17 @@ section {
 </style>
 </head>
 
+
 <body>
 
-<!-- =================================
-     OPENING CURTAIN
-================================= -->
+
+<!-- =====================================
+     OPENING CURTAINS
+===================================== -->
 
 <div class="opening" id="opening">
+
+    <div class="valance"></div>
 
     <div class="curtain left-curtain"></div>
     <div class="curtain right-curtain"></div>
@@ -805,9 +881,10 @@ section {
 
 </div>
 
-<!-- =================================
+
+<!-- =====================================
      HERO PAGE
-================================= -->
+===================================== -->
 
 <section class="hero">
 
@@ -839,9 +916,10 @@ section {
 
 </section>
 
-<!-- =================================
+
+<!-- =====================================
      FORMAL INVITATION
-================================= -->
+===================================== -->
 
 <section class="invitation">
 
@@ -893,9 +971,10 @@ section {
 
 </section>
 
-<!-- =================================
-     DATE PAGE
-================================= -->
+
+<!-- =====================================
+     WEDDING DATE
+===================================== -->
 
 <section class="date-section">
 
@@ -961,9 +1040,10 @@ section {
 
 </section>
 
-<!-- =================================
+
+<!-- =====================================
      VENUE PAGE
-================================= -->
+===================================== -->
 
 <section class="venue-section">
 
@@ -1000,9 +1080,10 @@ section {
 
 </section>
 
-<!-- =================================
+
+<!-- =====================================
      FINAL PAGE
-================================= -->
+===================================== -->
 
 <section class="final-section">
 
@@ -1022,11 +1103,15 @@ section {
 
 </section>
 
-<!-- =================================
+
+<!-- =====================================
      JAVASCRIPT
-================================= -->
+===================================== -->
 
 <script>
+
+
+/* OPEN CURTAINS */
 
 function openInvitation() {
 
@@ -1047,10 +1132,12 @@ function openInvitation() {
             .style
             .display = "none";
 
-    }, 2500);
+    }, 3200);
 
 }
 
+
+/* REVEAL WEDDING DATE */
 
 function revealDate() {
 
@@ -1061,6 +1148,8 @@ function revealDate() {
 
 }
 
+
+/* WEDDING COUNTDOWN */
 
 const weddingDate = new Date(
     "December 13, 2026 11:00:00 GMT+0530"
@@ -1086,6 +1175,7 @@ function updateCountdown() {
         });
 
         return;
+
     }
 
     const values = [
@@ -1119,9 +1209,13 @@ function updateCountdown() {
 
 }
 
+
+/* START COUNTDOWN */
+
 updateCountdown();
 
 setInterval(updateCountdown, 1000);
+
 
 </script>
 
