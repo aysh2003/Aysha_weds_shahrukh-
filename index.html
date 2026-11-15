@@ -4,25 +4,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#101010">
 <title>Aysha Weds Shahrukh</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.cdnfonts.com/css/tempting" rel="stylesheet">
 
 <style>
-
 :root {
   --black: #090909;
   --dark: #151515;
   --charcoal: #242424;
   --silver: #c8c8c8;
-  --light-silver: #ededed;
-  --grey: #999999;
   --white: #f5f5f5;
-  --wedding-bg: url("wedding-background.jpeg");
+  --grey: #999999;
 }
 
 * {
@@ -33,26 +32,39 @@
 
 html {
   scroll-behavior: smooth;
+  background: #101010;
 }
 
 body {
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
   background: #101010;
   color: var(--white);
   font-family: "Cormorant Garamond", serif;
   overflow-x: hidden;
 }
 
-/* ORIGINAL BACKGROUND IMAGE ACROSS THE WHOLE WEBSITE */
+body.locked {
+  overflow: hidden;
+}
+
+/* =================================
+   CONTINUOUS BACKGROUND IMAGE
+================================= */
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
-  background-image: var(--wedding-bg);
+
+  background-image: url("wedding-background.jpeg");
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
+
+  pointer-events: none;
 }
 
 body::after {
@@ -60,12 +72,17 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(0,0,0,.38);
+  background: rgba(0,0,0,.20);
   pointer-events: none;
 }
 
-body.locked {
-  overflow: hidden;
+main {
+  position: relative;
+}
+
+.photo-bg,
+.light-bg {
+  background: transparent !important;
 }
 
 button, a {
@@ -73,20 +90,24 @@ button, a {
 }
 
 /* =================================
-   BLACK AND SILVER BOOKLET OPENING
+   COVER IMAGE OPENING
 ================================= */
 
 .opening {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: #111;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: #080808;
   overflow: hidden;
-  perspective: 2200px;
-  transition: opacity 1.2s ease, visibility 1.2s ease;
+
+  transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
 }
 
 .opening.hidden {
@@ -95,208 +116,60 @@ button, a {
   pointer-events: none;
 }
 
-.booklet {
+.cover-image {
   position: absolute;
   inset: 0;
-  display: flex;
-  background: #171717;
-  box-shadow: 0 0 90px rgba(0,0,0,.9);
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
   cursor: pointer;
-  transform-style: preserve-3d;
-}
-
-.booklet-page {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background:
-    linear-gradient(
-      135deg,
-      #292929 0%,
-      #151515 45%,
-      #080808 100%
-    );
-  border: 1px solid rgba(210,210,210,.3);
-  backface-visibility: hidden;
-  transition: transform 2s cubic-bezier(.65,0,.25,1);
-  overflow: hidden;
-}
-
-.booklet-page::before {
-  content: "";
-  position: absolute;
-  inset: 20px;
-  border: 1px solid rgba(190,190,190,.45);
-  pointer-events: none;
-}
-
-.booklet-page::after {
-  content: "";
-  position: absolute;
-  inset: 28px;
-  border: 1px solid rgba(220,220,220,.13);
-  pointer-events: none;
-}
-
-.booklet-left {
-  left: 0;
-  transform-origin: left center;
-  border-right: 1px solid rgba(220,220,220,.4);
-  box-shadow:
-    inset -15px 0 30px rgba(0,0,0,.6),
-    8px 0 20px rgba(0,0,0,.3);
-}
-
-.booklet-right {
-  right: 0;
-  transform-origin: right center;
-  border-left: 1px solid rgba(220,220,220,.4);
-  box-shadow:
-    inset 15px 0 30px rgba(0,0,0,.6),
-    -8px 0 20px rgba(0,0,0,.3);
-}
-
-/* SILVER CENTRE SPINE */
-
-.booklet-spine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 3px;
-  height: 100%;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to right,
-    #555,
-    #d5d5d5,
-    #555
-  );
-  z-index: 4;
-  pointer-events: none;
-}
-
-/* BLACK WAX SEAL - AS ONLY */
-
-.wax-seal {
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(95px, 13vw, 130px);
-  height: clamp(95px, 13vw, 130px);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #eeeeee;
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #555,
-      #252525 48%,
-      #080808 100%
-    );
-
-  border: 2px solid #a8a8a8;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.8),
-    inset 0 0 0 4px rgba(255,255,255,.08),
-    inset 0 0 15px rgba(0,0,0,.8);
-
-  font: 400 clamp(52px, 7vw, 72px) "MonteCarlo", cursive;
 
   transition:
-    opacity .5s ease,
-    transform .6s ease;
+    transform 1.3s ease,
+    opacity 1.2s ease;
 }
 
-.wax-seal::before {
-  content: "";
+.opening.open .cover-image {
+  transform: scale(1.04);
+  opacity: .75;
+}
+
+.cover-tap {
   position: absolute;
-  inset: 9px;
-  border: 1px solid rgba(230,230,230,.65);
-  border-radius: 50%;
-}
-
-.wax-seal span {
-  position: relative;
-  z-index: 1;
-  margin-top: -8px;
-}
-
-/* TAP LABEL */
-
-.tap-label {
-  position: absolute;
-  z-index: 12;
   left: 50%;
-  top: calc(50% + 88px);
+  bottom: 7%;
+
   transform: translateX(-50%);
-  color: #d7d7d7;
-  font: 600 9px "Montserrat", sans-serif;
+
+  border: none;
+  background: rgba(0,0,0,.35);
+  color: #eeeeee;
+
+  padding: 10px 18px;
+
+  font: 500 9px "Montserrat", sans-serif;
   letter-spacing: 4px;
+
   white-space: nowrap;
+  cursor: pointer;
+
+  text-shadow: 0 2px 8px #000;
+
   animation: tapPulse 2s infinite;
 }
 
 @keyframes tapPulse {
-  0%, 100% {
-    opacity: .55;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-/* OPENING ANIMATION */
-
-.opening.open .booklet-left {
-  transform: rotateY(-115deg);
-}
-
-.opening.open .booklet-right {
-  transform: rotateY(115deg);
-}
-
-.opening.open .wax-seal {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(.3);
-}
-
-.opening.open .tap-label {
-  opacity: 0;
-}
-
-.opening.open .booklet-spine {
-  opacity: 0;
-  transition: opacity .4s ease;
-}
-
-.booklet-shadow {
-  position: absolute;
-  inset: 0;
-  background: #080808;
-  z-index: -1;
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
 }
 
 /* =================================
-   GENERAL DESIGN
+   DECORATIVE DETAILS
 ================================= */
-
-.photo-bg,
-.light-bg {
-  background: transparent;
-}
-
-.islamic-pattern {
-  display: none;
-}
 
 .ornament {
   width: min(180px, 50vw);
@@ -315,13 +188,8 @@ button, a {
   background: #bcbcbc;
 }
 
-.ornament::before {
-  left: 0;
-}
-
-.ornament::after {
-  right: 0;
-}
+.ornament::before { left: 0; }
+.ornament::after { right: 0; }
 
 .ornament span {
   position: absolute;
@@ -344,12 +212,12 @@ button, a {
   font: 600 10px "Montserrat", sans-serif;
   letter-spacing: 4px;
   margin-bottom: 25px;
-  color: #d0d0d0;
+  color: #e0e0e0;
   text-shadow: 0 2px 8px #000;
 }
 
 /* =================================
-   HERO
+   PAGE 1 - HERO
 ================================= */
 
 .hero {
@@ -382,7 +250,6 @@ button, a {
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -396,8 +263,13 @@ button, a {
   color: #ededed;
 }
 
+/* TEMPTING FONT */
+
 .couple-name {
-  font: 400 clamp(80px, 15vw, 150px)/1.1 "MonteCarlo", cursive;
+  font-family: "Tempting", cursive;
+  font-weight: 400;
+  font-size: clamp(80px, 15vw, 150px);
+  line-height: 1.25;
   color: #fff;
   text-shadow: 0 5px 25px rgba(0,0,0,.8);
 }
@@ -417,7 +289,7 @@ button, a {
 }
 
 /* =================================
-   INVITATION
+   PAGE 2 - INVITATION
 ================================= */
 
 .invitation {
@@ -430,11 +302,11 @@ button, a {
 .invitation-card {
   width: min(720px, 100%);
   padding: clamp(40px, 7vw, 70px) clamp(22px, 6vw, 48px);
+
   text-align: center;
   position: relative;
 
   background: rgba(8,8,8,.25);
-
   border: 1px solid rgba(220,220,220,.55);
   outline: 1px solid rgba(220,220,220,.2);
   outline-offset: 7px;
@@ -452,13 +324,8 @@ button, a {
   background: rgba(220,220,220,.3);
 }
 
-.invitation-card::before {
-  top: 16px;
-}
-
-.invitation-card::after {
-  bottom: 16px;
-}
+.invitation-card::before { top: 16px; }
+.invitation-card::after { bottom: 16px; }
 
 .arabic {
   font: clamp(32px, 7vw, 48px) "Amiri", serif;
@@ -485,8 +352,13 @@ button, a {
   color: #fff;
 }
 
+/* TEMPTING FONT FOR BRIDE AND GROOM */
+
 .person-name {
-  font: 400 clamp(62px, 9vw, 88px)/1.2 "MonteCarlo", cursive;
+  font-family: "Tempting", cursive;
+  font-weight: 400;
+  font-size: clamp(62px, 9vw, 88px);
+  line-height: 1.35;
   margin: 14px 0;
   color: #f2f2f2;
   text-shadow: 0 3px 12px #000;
@@ -519,7 +391,7 @@ button, a {
 }
 
 /* =================================
-   DATE AND COUNTDOWN
+   PAGE 3 - DATE AND COUNTDOWN
 ================================= */
 
 .date-section {
@@ -599,7 +471,7 @@ button, a {
 }
 
 /* =================================
-   VENUE
+   PAGE 4 - VENUE
 ================================= */
 
 .venue-section {
@@ -615,8 +487,8 @@ button, a {
   padding: clamp(38px, 6vw, 58px) 25px;
 
   background: rgba(8,8,8,.25);
-
   border: 1px solid rgba(220,220,220,.55);
+
   box-shadow: 0 20px 60px rgba(0,0,0,.3);
 }
 
@@ -657,6 +529,7 @@ button, a {
   letter-spacing: 2px;
   text-decoration: none;
   cursor: pointer;
+
   transition: .3s ease;
 }
 
@@ -667,7 +540,7 @@ button, a {
 }
 
 /* =================================
-   CLOSING
+   PAGE 5 - CLOSING
 ================================= */
 
 .final-section {
@@ -694,7 +567,10 @@ button, a {
 }
 
 .final-names {
-  font: 400 clamp(68px, 12vw, 112px)/1.25 "MonteCarlo", cursive;
+  font-family: "Tempting", cursive;
+  font-weight: 400;
+  font-size: clamp(68px, 12vw, 112px);
+  line-height: 1.4;
   margin-top: 28px;
   color: #fff;
 }
@@ -712,6 +588,7 @@ button, a {
   display: flex;
   align-items: center;
   gap: 10px;
+
   padding: 12px 16px;
 
   border: 1px solid rgba(220,220,220,.7);
@@ -721,6 +598,7 @@ button, a {
   color: #f5f5f5;
 
   cursor: pointer;
+
   font: 600 9px "Montserrat", sans-serif;
   letter-spacing: 1.5px;
 
@@ -739,7 +617,7 @@ button, a {
 }
 
 /* =================================
-   TEXT REVEAL EFFECTS
+   SCROLL REVEAL
 ================================= */
 
 .reveal {
@@ -767,40 +645,23 @@ button, a {
   from {
     opacity: 0;
     transform: translateY(18px);
-    letter-spacing: 2px;
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
-    letter-spacing: 0;
   }
 }
 
-.hero-content > * {
-  animation: fadeUp 1.2s ease both;
-}
-
-.hero-content .couple-name:nth-of-type(1) {
-  animation-delay: .2s;
-}
-
-.hero-content .weds {
-  animation-delay: .4s;
-}
-
-.hero-content .couple-name:nth-of-type(2) {
-  animation-delay: .6s;
-}
-
 /* =================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
 ================================= */
 
 @media (max-width: 650px) {
 
-  body::before {
-    background-position: center center;
+  .cover-tap {
+    bottom: 6%;
+    font-size: 8px;
+    letter-spacing: 3px;
   }
 
   .hero {
@@ -850,20 +711,17 @@ button, a {
     font-size: 19px;
   }
 
+  .final-names {
+    font-size: clamp(60px, 13vw, 90px);
+  }
+
   .music-control {
     right: 14px;
     bottom: 14px;
   }
-
-  .tap-label {
-    top: calc(50% + 85px);
-    font-size: 8px;
-    letter-spacing: 3px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -878,41 +736,29 @@ button, a {
     filter: none;
   }
 }
-
 </style>
 </head>
 
 <body class="locked">
 
-<!-- BOOKLET OPENING -->
+<!-- COVER IMAGE OPENING -->
 
 <div class="opening" id="opening">
 
-  <div class="booklet-shadow"></div>
-
-  <div
-    class="booklet"
-    id="booklet"
-    role="button"
-    tabindex="0"
-    aria-label="Open wedding invitation"
+  <img
+    src="envelope-cover.png"
+    class="cover-image"
+    id="coverImage"
+    alt="Wedding invitation cover"
   >
 
-    <div class="booklet-page booklet-left"></div>
-
-    <div class="booklet-page booklet-right"></div>
-
-    <div class="booklet-spine"></div>
-
-    <!-- SEAL: AS WITHOUT AMPERSAND -->
-
-    <div class="wax-seal">
-      <span>AS</span>
-    </div>
-
-    <div class="tap-label">TAP TO OPEN</div>
-
-  </div>
+  <button
+    class="cover-tap"
+    id="openButton"
+    type="button"
+  >
+    TAP TO OPEN
+  </button>
 
 </div>
 
@@ -923,16 +769,13 @@ button, a {
 </audio>
 
 <button class="music-control" id="musicButton" type="button">
-
   <span class="music-icon" id="musicIcon">♫</span>
-
   <span id="musicLabel">PLAY MUSIC</span>
-
 </button>
 
 <main>
 
-  <!-- HERO -->
+  <!-- PAGE 1 - HERO -->
 
   <section class="hero photo-bg">
 
@@ -942,9 +785,7 @@ button, a {
         TOGETHER WITH THEIR FAMILIES
       </p>
 
-      <div class="ornament">
-        <span></span>
-      </div>
+      <div class="ornament"><span></span></div>
 
       <h1 class="couple-name">Aysha</h1>
 
@@ -962,15 +803,13 @@ button, a {
 
   </section>
 
-  <!-- INVITATION -->
+  <!-- PAGE 2 - INVITATION -->
 
   <section class="invitation light-bg">
 
     <div class="invitation-card reveal">
 
-      <div class="ornament">
-        <span></span>
-      </div>
+      <div class="ornament"><span></span></div>
 
       <div class="arabic">
         بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
@@ -1016,19 +855,15 @@ button, a {
 
   </section>
 
-  <!-- DATE AND COUNTDOWN -->
+  <!-- PAGE 3 - DATE -->
 
   <section class="date-section photo-bg">
 
     <div class="date-content reveal">
 
-      <p class="section-kicker">
-        OUR SPECIAL DAY
-      </p>
+      <p class="section-kicker">OUR SPECIAL DAY</p>
 
-      <div class="ornament">
-        <span></span>
-      </div>
+      <div class="ornament"><span></span></div>
 
       <button class="action-btn" id="revealDateButton">
         ✦ REVEAL THE DATE ✦
@@ -1036,15 +871,11 @@ button, a {
 
       <div class="hidden-date" id="dateReveal">
 
-        <h2 class="date-big">
-          13 DECEMBER 2026
-        </h2>
+        <h2 class="date-big">13 DECEMBER 2026</h2>
 
         <p class="day">SUNDAY</p>
 
-        <p class="time">
-          ✦ 11:00 AM – 12:00 PM ✦
-        </p>
+        <p class="time">✦ 11:00 AM – 12:00 PM ✦</p>
 
         <p class="section-kicker">
           COUNTING DOWN TO OUR FOREVER
@@ -1080,25 +911,19 @@ button, a {
 
   </section>
 
-  <!-- VENUE -->
+  <!-- PAGE 4 - VENUE -->
 
   <section class="venue-section light-bg">
 
     <div class="venue-card reveal">
 
-      <div class="ornament">
-        <span></span>
-      </div>
+      <div class="ornament"><span></span></div>
 
       <div class="venue-icon">⌖</div>
 
-      <p class="section-kicker">
-        THE VENUE
-      </p>
+      <p class="section-kicker">THE VENUE</p>
 
-      <h2 class="venue-name">
-        NSK GRAND SPACE
-      </h2>
+      <h2 class="venue-name">NSK GRAND SPACE</h2>
 
       <p class="venue-text">
         We would be honoured by your presence<br>
@@ -1122,15 +947,13 @@ button, a {
 
   </section>
 
-  <!-- CLOSING -->
+  <!-- PAGE 5 - CLOSING -->
 
   <section class="final-section photo-bg">
 
     <div class="final-text reveal">
 
-      <div class="ornament">
-        <span></span>
-      </div>
+      <div class="ornament"><span></span></div>
 
       <p>
         Your presence and blessings would mean the world
@@ -1152,12 +975,12 @@ button, a {
 <script>
 
 /* =================================
-   BOOKLET OPENING
+   COVER IMAGE OPENING
 ================================= */
 
 const opening = document.getElementById("opening");
-
-const booklet = document.getElementById("booklet");
+const coverImage = document.getElementById("coverImage");
+const openButton = document.getElementById("openButton");
 
 const music = document.getElementById("weddingMusic");
 
@@ -1173,58 +996,31 @@ async function openInvitation() {
 
   document.body.classList.remove("locked");
 
-  // Start music after visitor taps
-
   try {
-
     await music.play();
-
     updateMusicButton(true);
-
   } catch (error) {
-
     updateMusicButton(false);
-
   }
 
-  // Hide booklet after opening
-
   setTimeout(() => {
-
     opening.classList.add("hidden");
-
-  }, 1900);
+  }, 250);
 
   setTimeout(() => {
-
     opening.style.display = "none";
-
-  }, 3100);
-
+  }, 1500);
 }
 
-booklet.addEventListener("click", openInvitation);
-
-booklet.addEventListener("keydown", event => {
-
-  if (event.key === "Enter" || event.key === " ") {
-
-    event.preventDefault();
-
-    openInvitation();
-
-  }
-
-});
+openButton.addEventListener("click", openInvitation);
+coverImage.addEventListener("click", openInvitation);
 
 /* =================================
    MUSIC PLAY / PAUSE
 ================================= */
 
 const musicButton = document.getElementById("musicButton");
-
 const musicIcon = document.getElementById("musicIcon");
-
 const musicLabel = document.getElementById("musicLabel");
 
 function updateMusicButton(playing) {
@@ -1240,7 +1036,6 @@ function updateMusicButton(playing) {
     "aria-label",
     playing ? "Pause music" : "Play music"
   );
-
 }
 
 musicButton.addEventListener("click", async () => {
@@ -1248,38 +1043,23 @@ musicButton.addEventListener("click", async () => {
   if (music.paused) {
 
     try {
-
       await music.play();
-
       updateMusicButton(true);
-
     } catch (error) {
-
       updateMusicButton(false);
-
-      alert(
-        "Please upload wedding-music.mp3 to your GitHub repository."
-      );
-
+      alert("Please check that wedding-music.mp3 is uploaded.");
     }
 
   } else {
 
     music.pause();
-
     updateMusicButton(false);
 
   }
-
 });
 
-music.addEventListener("play", () => {
-  updateMusicButton(true);
-});
-
-music.addEventListener("pause", () => {
-  updateMusicButton(false);
-});
+music.addEventListener("play", () => updateMusicButton(true));
+music.addEventListener("pause", () => updateMusicButton(false));
 
 /* =================================
    DATE REVEAL
@@ -1318,44 +1098,26 @@ function updateCountdown() {
   if (distance <= 0) {
 
     ids.forEach(id => {
-
       document.getElementById(id).textContent = "00";
-
     });
 
     return;
-
   }
 
   const values = [
-
     Math.floor(distance / 86400000),
-
-    Math.floor(
-      (distance % 86400000) / 3600000
-    ),
-
-    Math.floor(
-      (distance % 3600000) / 60000
-    ),
-
-    Math.floor(
-      (distance % 60000) / 1000
-    )
-
+    Math.floor((distance % 86400000) / 3600000),
+    Math.floor((distance % 3600000) / 60000),
+    Math.floor((distance % 60000) / 1000)
   ];
 
   ids.forEach((id, index) => {
-
     document.getElementById(id).textContent =
       String(values[index]).padStart(2, "0");
-
   });
-
 }
 
 updateCountdown();
-
 setInterval(updateCountdown, 1000);
 
 /* =================================
@@ -1367,7 +1129,6 @@ const revealItems = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {
 
   const observer = new IntersectionObserver(
-
     (entries, observer) => {
 
       entries.forEach(entry => {
@@ -1383,17 +1144,13 @@ if ("IntersectionObserver" in window) {
       });
 
     },
-
     {
       threshold: 0.12,
       rootMargin: "0px 0px -30px 0px"
     }
-
   );
 
-  revealItems.forEach(item => {
-    observer.observe(item);
-  });
+  revealItems.forEach(item => observer.observe(item));
 
 } else {
 
