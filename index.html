@@ -1,837 +1,347 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#171717">
+<meta name="theme-color" content="#222428">
 
 <title>Aysha Weds Shahrukh</title>
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.cdnfonts.com/css/tempting" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
 <style>
+
+/* ==============================
+   THEME  –  Smoky Gray & Silver White
+============================== */
+
 :root {
-    --dark: #222222;
-    --grey: #555555;
-    --silver: #aaaaaa;
-    --white: #f5f5f5;
-    --gold: #a99a7c;
+    --bg-deep:   #222428;
+    --bg-emerald:#484c52;
+    --gold-1:    #ffffff;
+    --gold-2:    #cdd0d6;
+    --gold-3:    #8d9199;
+    --ivory:     #f7f8fa;
+    --ivory-soft:#dfe1e5;
+    --muted:     #a3a7ae;
+
+    --gold-gradient: linear-gradient(120deg, #8d9199 0%, #ffffff 30%, #cdd0d6 50%, #ffffff 70%, #8d9199 100%);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: Georgia, serif;
-    color: var(--dark);
-    background: #171717;
-    overflow-x: hidden;
-}
-
-body.locked {
-    overflow: hidden;
-}
-
-/* =====================================
-   LONG BACKGROUND FOR ALL FIVE PAGES
-===================================== */
-
-.site {
     position: relative;
-    isolation: isolate;
-    min-height: 100vh;
-
-    background-image: url("wedding-background.png");
-    background-position: center top;
-    background-size: 100% auto;
-    background-repeat: repeat-y;
+    background: var(--bg-deep);
+    color: var(--ivory);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* =====================================
-   OPENING COVER
-===================================== */
+button { font-family: inherit; }
 
-.opening {
+/* shimmer text helper */
+.gold-text {
+    background: var(--gold-gradient);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shimmer 7s linear infinite;
+}
+
+@keyframes shimmer {
+    to { background-position: 220% center; }
+}
+
+/* bride & groom name colour (solid, no shimmer) */
+.name-silver {
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+/* ==============================
+   OPENING COVER
+============================== */
+
+#cover {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: #080808;
-
+    background: var(--bg-deep);
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
-    transition: opacity 1s ease, visibility 1s ease;
+    overflow: hidden;
 }
 
-.opening.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.cover-image {
-    position: absolute;
-    inset: 0;
+#cover img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+}
+
+.cover-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%),
+        linear-gradient(to bottom, rgba(34,36,40,0.1), rgba(34,36,40,0.25), rgba(34,36,40,0.75));
+}
+
+.cover-frame {
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(205,208,214,0.55);
+    pointer-events: none;
+}
+.cover-frame::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(205,208,214,0.25);
+}
+
+.tap-wrap {
+    position: absolute;
+    bottom: 9%;
+    z-index: 2;
+    text-align: center;
 }
 
 .tap-text {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-
-    color: white;
+    display: inline-block;
+    padding: 13px 34px;
+    color: var(--gold-1);
+    font-family: 'Cinzel', serif;
     font-size: 11px;
-    letter-spacing: 4px;
-    white-space: nowrap;
-    text-shadow: 0 2px 8px #000;
-
-    animation: pulse 2s infinite;
+    letter-spacing: 6px;
+    border: 1px solid rgba(205,208,214,0.7);
+    background: rgba(34,36,40,0.45);
+    backdrop-filter: blur(6px);
+    animation: pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+    0%, 100% { opacity: 0.55; transform: translateY(0); }
+    50%      { opacity: 1;    transform: translateY(-4px); }
 }
 
-/* =====================================
-   MUSIC BUTTON
-===================================== */
+/* ==============================
+   BACKGROUND (flows top to bottom)
+============================== */
 
-.music-button {
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    background:
+        url("wedding-background.png") top center / 100% 100% no-repeat,
+        var(--bg-deep);
+}
+
+.bg-tint {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(180deg,
+            rgba(34,36,40,0.28) 0%,
+            rgba(72,76,82,0.12) 25%,
+            rgba(72,76,82,0.12) 75%,
+            rgba(34,36,40,0.30) 100%);
+    pointer-events: none;
+}
+
+#sparkles {
     position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 100;
-
-    width: 43px;
-    height: 43px;
-    border-radius: 50%;
-
-    border: 1px solid #888;
-    background: rgba(20,20,20,0.8);
-    color: white;
-
-    font-size: 19px;
-    cursor: pointer;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
-/* =====================================
-   FIVE PAGE SECTIONS
-===================================== */
+/* scroll progress */
+#progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0;
+    z-index: 600;
+    background: var(--gold-gradient);
+}
 
-.page {
+/* ==============================
+   MAIN WEBSITE
+============================== */
+
+#website {
+    display: none;
+    position: relative;
     min-height: 100vh;
-    min-height: 100svh;
+}
 
-    padding: 65px 18px;
+/* ==============================
+   MUSIC BUTTON
+============================== */
 
+.music-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 500;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(205,208,214,0.7);
+    color: var(--gold-1);
+    background: rgba(34,36,40,0.65);
+    font-size: 17px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: 0.4s;
+}
+.music-btn:hover { background: rgba(205,208,214,0.2); }
+.music-btn.playing { animation: spin-glow 4s linear infinite; }
+
+@keyframes spin-glow {
+    0%,100% { box-shadow: 0 0 0 0 rgba(205,208,214,0.45); }
+    50%     { box-shadow: 0 0 0 9px rgba(205,208,214,0); }
+}
+
+/* ==============================
+   COMMON SECTIONS
+============================== */
+
+.section {
+    min-height: 100vh;
+    padding: 80px 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     text-align: center;
     position: relative;
-
-    border-bottom: 1px solid rgba(80,80,80,0.15);
 }
 
 .content {
+    position: relative;
     width: 100%;
-    max-width: 800px;
-
-    padding: 32px 24px;
-
-    background: rgba(255,255,255,0.30);
-    border: 1px solid rgba(100,100,100,0.28);
-
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    max-width: 640px;
+    margin: auto;
+    padding: 58px 30px;
+    background: linear-gradient(160deg, rgba(72,76,82,0.38), rgba(34,36,40,0.45));
+    border: 1px solid rgba(205,208,214,0.45);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.5), inset 0 0 60px rgba(205,208,214,0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
-/* =====================================
-   TEXT STYLES - SLIGHTLY SMALLER
-===================================== */
+/* inner fine frame */
+.content::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid rgba(205,208,214,0.2);
+    pointer-events: none;
+}
+
+/* corner ornaments */
+.corner {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid var(--gold-2);
+    pointer-events: none;
+}
+.corner.tl { top: -1px;    left: -1px;  border-right: none; border-bottom: none; }
+.corner.tr { top: -1px;    right: -1px; border-left: none;  border-bottom: none; }
+.corner.bl { bottom: -1px; left: -1px;  border-right: none; border-top: none; }
+.corner.br { bottom: -1px; right: -1px; border-left: none;  border-top: none; }
 
 .small-heading {
-    color: #555555;
+    font-family: 'Cinzel', serif;
     font-size: 11px;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     text-transform: uppercase;
-    line-height: 2;
-    margin-bottom: 20px;
+    color: var(--gold-2);
+    margin-bottom: 22px;
 }
 
-.section-title {
-    color: #363636;
-    font-size: clamp(25px, 4.5vw, 40px);
-    letter-spacing: 1.5px;
-    line-height: 1.4;
-    margin-bottom: 20px;
-}
+h1, h2, h3 { font-weight: 400; }
 
-.couple-name {
-    font-family: 'Tempting', cursive;
-    color: #363636;
-
-    font-size: clamp(42px, 7.5vw, 78px);
+.main-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(30px, 6vw, 46px);
     line-height: 1.35;
-
-    margin: 9px 0;
-
-    text-shadow: 0 2px 5px rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    color: var(--ivory);
+    margin-bottom: 20px;
 }
 
-.ampersand {
-    font-family: Georgia, serif;
-    font-size: 30px;
-    color: #80745f;
-    margin: 7px 0;
-}
-
-.normal-text {
-    color: #414141;
-    font-size: 15px;
-    line-height: 1.9;
-}
-
-.parent-text {
-    color: #505050;
-    font-size: 14px;
-    line-height: 1.9;
-    margin: 13px 0;
-}
-
-.highlight {
-    color: #786d59;
-    font-size: 14px;
-    letter-spacing: 3px;
-    margin: 16px 0;
-}
-
-.divider {
-    width: 85px;
-    height: 1px;
-    background: #95866e;
-    margin: 22px auto;
-}
-
-/* =====================================
-   VENUE NAME - SERIF FONT
-===================================== */
-
-.venue-name {
-    font-family: "Times New Roman", Times, serif;
-    font-weight: normal;
-    font-size: clamp(29px, 5.5vw, 47px);
-    letter-spacing: 3px;
-    line-height: 1.5;
-    color: #383838;
-    margin: 18px 0;
-    text-shadow: 0 1px 4px rgba(255,255,255,0.6);
-}
-
-/* =====================================
-   SCROLL LINKS
-===================================== */
-
-.scroll-link {
-    display: inline-block;
-    margin-top: 30px;
-
-    color: #555;
-    text-decoration: none;
-
-    font-size: 10px;
-    letter-spacing: 3px;
-}
-
-/* =====================================
-   COUNTDOWN
-===================================== */
-
-.countdown {
+/* ornamental divider */
+.ornament {
     display: flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     gap: 12px;
-    margin-top: 28px;
+    margin: 28px auto;
+    max-width: 280px;
+}
+.ornament::before,
+.ornament::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-2));
+}
+.ornament::after { transform: scaleX(-1); }
+.ornament span {
+    color: var(--gold-2);
+    font-size: 15px;
+    line-height: 1;
 }
 
-.time-box {
-    min-width: 75px;
-    padding: 14px 10px;
+/* ==============================
+   SECTION 1 - INVITATION
+============================== */
 
-    background: rgba(255,255,255,0.48);
-    border: 1px solid rgba(100,100,100,0.4);
+.bismillah {
+    font-family: 'Amiri', serif;
+    font-size: clamp(28px, 6vw, 38px);
+    line-height: 1.9;
+    margin-bottom: 14px;
+    filter: drop-shadow(0 0 12px rgba(205,208,214,0.35));
 }
 
-.time-box span {
-    display: block;
-    color: #383838;
-    font-size: 26px;
-    margin-bottom: 6px;
+.couple-names {
+    font-family: 'Alex Brush', 'Allura', cursive;
+    font-size: clamp(66px, 15vw, 118px);
+    line-height: 1.05;
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 1px;
+    padding: 0 8px;
 }
 
-.time-box small {
-    color: #666;
-    font-size: 9px;
-    letter-spacing: 2px;
-}
-
-/* =====================================
-   MAP BUTTON
-===================================== */
-
-.map-link {
-    display: inline-block;
-    margin-top: 26px;
-    padding: 12px 26px;
-
-    border: 1px solid #81745e;
-    color: #444;
-
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 3px;
-
-    transition: 0.3s;
-}
-
-.map-link:hover {
-    background: #777064;
-    color: white;
-}
-
-/* =====================================
-   CLOSING PAGE
-===================================== */
-
-.footer-text {
-    color: #666;
-    font-size: 11px;
-    letter-spacing: 3px;
-    line-height: 2.4;
-}
-
-/* =====================================
-   REVEAL ANIMATION
-===================================== */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease, transform 1s ease;
-}
-
-.reveal.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =====================================
-   MOBILE RESPONSIVE DESIGN
-===================================== */
-
-@media (max-width: 600px) {
-
-    .page {
-        padding: 48px 13px;
-    }
-
-    .content {
-        padding: 26px 16px;
-    }
-
-    .couple-name {
-        font-size: clamp(39px, 9vw, 55px);
-    }
-
-    .section-title {
-        font-size: 27px;
-    }
-
-    .normal-text {
-        font-size: 14px;
-    }
-
-    .parent-text {
-        font-size: 13px;
-    }
-
-    .venue-name {
-        font-size: 31px;
-        letter-spacing: 2px;
-    }
-
-    .time-box {
-        min-width: 65px;
-        padding: 12px 7px;
-    }
-
-    .time-box span {
-        font-size: 22px;
-    }
-
-    .small-heading {
-        font-size: 10px;
-        letter-spacing: 3px;
-    }
-
-    .tap-text {
-        bottom: 23px;
-        font-size: 10px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-
-    .reveal {
-        transition: none;
-    }
-
-    .tap-text {
-        animation: none;
-    }
-}
-</style>
-</head>
-
-<body class="locked">
-
-<!-- =====================================
-     OPENING COVER
-===================================== -->
-
-<div class="opening" id="opening">
-
-    <img
-        src="envelope-cover.png"
-        alt="Aysha and Shahrukh wedding invitation cover"
-        class="cover-image"
-    >
-
-    <div class="tap-text">TAP TO OPEN</div>
-
-</div>
-
-
-<!-- =====================================
-     BACKGROUND MUSIC
-===================================== -->
-
-<audio id="weddingMusic" loop>
-    <source src="wedding-music.mp3" type="audio/mpeg">
-</audio>
-
-<button
-    class="music-button"
-    id="musicButton"
-    aria-label="Play or pause music"
->
-    ♫
-</button>
-
-
-<!-- =====================================
-     MAIN FIVE-PAGE WEBSITE
-===================================== -->
-
-<main class="site">
-
-
-    <!-- PAGE 1: WELCOME -->
-
-    <section class="page" id="home">
-
-        <div class="content reveal">
-
-            <p class="small-heading">
-                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-            </p>
-
-            <p class="normal-text">
-                In the name of Allah, the Most Gracious,
-                the Most Merciful
-            </p>
-
-            <div class="divider"></div>
-
-            <p class="small-heading">
-                Together with their families
-            </p>
-
-            <h1 class="couple-name">
-                Aysha Reshma
-            </h1>
-
-            <div class="ampersand">&</div>
-
-            <h1 class="couple-name">
-                Shahrukh Lena Thaj
-            </h1>
-
-            <div class="divider"></div>
-
-            <p class="normal-text">
-                Request the pleasure of your presence
-                at their wedding celebration.
-            </p>
-
-            <a href="#invitation" class="scroll-link">
-                SCROLL TO EXPLORE ↓
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- PAGE 2: INVITATION -->
-
-    <section class="page" id="invitation">
-
-        <div class="content reveal">
-
-            <p class="small-heading">
-                With the blessings of our parents
-            </p>
-
-            <h2 class="section-title">
-                Wedding Invitation
-            </h2>
-
-            <div class="divider"></div>
-
-            <p class="normal-text">
-                With immense happiness and gratitude to
-                Almighty Allah, we invite you to join us
-                as we begin a beautiful new chapter
-                of our lives.
-            </p>
-
-            <div class="divider"></div>
-
-            <p class="highlight">THE BRIDE</p>
-
-            <h2 class="couple-name">
-                Aysha Reshma
-            </h2>
-
-            <p class="parent-text">
-                D/o. Mr. M. Mohammed Ashraf (Babu)<br>
-                & Mrs. S. Irfana Fathima
-            </p>
-
-            <div class="divider"></div>
-
-            <p class="highlight">THE GROOM</p>
-
-            <h2 class="couple-name">
-                Shahrukh Lena Thaj
-            </h2>
-
-            <p class="parent-text">
-                S/o. Mr. L.M. Thajudheen<br>
-                & Mrs. Nadeera Thaj
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- PAGE 3: WEDDING DATE -->
-
-    <section class="page" id="date">
-
-        <div class="content reveal">
-
-            <p class="small-heading">
-                Save the date
-            </p>
-
-            <h2 class="section-title">
-                The Wedding Day
-            </h2>
-
-            <div class="divider"></div>
-
-            <p class="highlight">
-                SUNDAY
-            </p>
-
-            <h2 class="couple-name">
-                13 December 2026
-            </h2>
-
-            <p class="normal-text">
-                11:00 AM – 12:00 PM
-            </p>
-
-            <div class="divider"></div>
-
-            <p class="small-heading">
-                Counting down to forever
-            </p>
-
-            <div class="countdown">
-
-                <div class="time-box">
-                    <span id="days">00</span>
-                    <small>DAYS</small>
-                </div>
-
-                <div class="time-box">
-                    <span id="hours">00</span>
-                    <small>HOURS</small>
-                </div>
-
-                <div class="time-box">
-                    <span id="minutes">00</span>
-                    <small>MINUTES</small>
-                </div>
-
-                <div class="time-box">
-                    <span id="seconds">00</span>
-                    <small>SECONDS</small>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- PAGE 4: VENUE -->
-
-    <section class="page" id="venue">
-
-        <div class="content reveal">
-
-            <p class="small-heading">
-                Join us for the celebration
-            </p>
-
-            <h2 class="section-title">
-                The Venue
-            </h2>
-
-            <div class="divider"></div>
-
-            <h2 class="venue-name">
-                NSK GRAND SPACE
-            </h2>
-
-            <p class="normal-text">
-                We look forward to celebrating
-                this special occasion with you.
-            </p>
-
-            <a
-                href="https://share.google/wsgjEVOLPl758JKR4"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="map-link"
-            >
-                VIEW LOCATION
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- PAGE 5: CLOSING -->
-
-    <section class="page" id="closing">
-
-        <div class="content reveal">
-
-            <p class="small-heading">
-                A beautiful new beginning
-            </p>
-
-            <h2 class="section-title">
-                With Love & Gratitude
-            </h2>
-
-            <div class="divider"></div>
-
-            <h2 class="couple-name">
-                Aysha & Shahrukh
-            </h2>
-
-            <p class="normal-text">
-                Your presence and blessings will make
-                our special day even more memorable.
-            </p>
-
-            <div class="divider"></div>
-
-            <p class="footer-text">
-                WITH LOVE<br>
-                AND BEST WISHES
-            </p>
-
-            <p class="normal-text" style="margin-top:24px;">
-                Thank You
-            </p>
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
-
-<script>
-
-/* OPENING COVER */
-
-const opening = document.getElementById("opening");
-const music = document.getElementById("weddingMusic");
-const musicButton = document.getElementById("musicButton");
-
-opening.addEventListener("click", function () {
-
-    opening.classList.add("hide");
-
-    document.body.classList.remove("locked");
-
-    music.play().then(() => {
-        musicButton.textContent = "♫";
-    }).catch(() => {
-        musicButton.textContent = "▶";
-    });
-
-});
-
-
-/* MUSIC PLAY AND PAUSE */
-
-musicButton.addEventListener("click", function () {
-
-    if (music.paused) {
-
-        music.play().then(() => {
-            musicButton.textContent = "♫";
-        }).catch(() => {
-            musicButton.textContent = "▶";
-        });
-
-    } else {
-
-        music.pause();
-        musicButton.textContent = "▶";
-
-    }
-
-});
-
-
-/* WEDDING COUNTDOWN */
-
-const weddingDate =
-    new Date("2026-12-13T11:00:00+05:30").getTime();
-
-function updateCountdown() {
-
-    const now = new Date().getTime();
-    const difference = weddingDate - now;
-
-    if (difference <= 0) {
-
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
-
-        return;
-    }
-
-    const days = Math.floor(
-        difference / (1000 * 60 * 60 * 24)
-    );
-
-    const hours = Math.floor(
-        (difference / (1000 * 60 * 60)) % 24
-    );
-
-    const minutes = Math.floor(
-        (difference / (1000 * 60)) % 60
-    );
-
-    const seconds = Math.floor(
-        (difference / 1000) % 60
-    );
-
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-
-/* SCROLL REVEAL ANIMATION */
-
-const revealElements =
-    document.querySelectorAll(".reveal");
-
-const observer = new IntersectionObserver(
-
-    (entries) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
-
-        });
-
-    },
-
-    {
-        threshold: 0.12
-    }
-
-);
-
-revealElements.forEach(element => {
-    observer.observe(element);
-});
-
-</script>
-
-</body>
-</html>
+.weds {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    letter-spacing: 9px;
+    color: var(--ivory-soft);
+    margin: 6px 0
