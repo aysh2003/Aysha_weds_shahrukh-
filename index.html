@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,31 +20,36 @@
 <style>
 
 /* ==============================
-   THEME  –  Mocha Mousse, Espresso & Ivory
+   THEME – Mocha Mousse, Espresso & Ivory
 ============================== */
 
 :root {
-    --espresso:   #2b1a12;
+    --espresso: #2b1a12;
     --espresso-2: #3a2418;
-    --mocha:      #a47864;   /* mocha mousse */
+    --mocha: #a47864;
     --mocha-deep: #8a5f4c;
     --mocha-soft: #c9a78f;
-    --ivory:      #f8f1e4;
-    --ivory-2:    #efe3cf;
+    --ivory: #f8f1e4;
+    --ivory-2: #efe3cf;
 
-    --ink:        #3a2418;   /* main text on ivory cards */
-    --ink-soft:   #5c4132;   /* body text on ivory cards */
+    --ink: #3a2418;
+    --ink-soft: #5c4132;
 
-    /* shimmering mocha text */
     --mocha-gradient: linear-gradient(115deg,
         #4a2e20 0%, #8a5f4c 24%, #c29a80 42%, #8a5f4c 58%, #4a2e20 78%, #6a4535 100%);
-    /* lighter shimmer for the button fill */
+
     --ivory-gradient: linear-gradient(120deg, #3a2418 0%, #6a4535 50%, #3a2418 100%);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     position: relative;
@@ -54,14 +60,40 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-button { font-family: inherit; }
+/* ==============================
+   BUTTON HIGHLIGHT FIX
+   Removes blue browser tap/focus effects
+   without changing existing button designs.
+============================== */
+
+button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+button:focus,
+button:active,
+button:focus-visible {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Remove tap highlight from clickable elements */
+#cover,
+.btn,
+.music-btn,
+#revealBtn {
+    -webkit-tap-highlight-color: transparent;
+}
 
 /* shimmering text helper */
+
 .gold-text {
     background: var(--mocha-gradient);
     background-size: 240% auto;
     -webkit-background-clip: text;
-            background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: shimmer 8s linear infinite;
@@ -103,7 +135,9 @@ button { font-family: inherit; }
         linear-gradient(to bottom, rgba(43,26,18,0.08), rgba(43,26,18,0.22), rgba(43,26,18,0.72));
 }
 
-.cover-frame { display: none; }
+.cover-frame {
+    display: none;
+}
 
 .tap-wrap {
     position: absolute;
@@ -127,11 +161,11 @@ button { font-family: inherit; }
 
 @keyframes pulse {
     0%, 100% { opacity: 0.6; transform: translateY(0); }
-    50%      { opacity: 1;   transform: translateY(-4px); }
+    50% { opacity: 1; transform: translateY(-4px); }
 }
 
 /* ==============================
-   BACKGROUND (flows top to bottom)
+   BACKGROUND
 ============================== */
 
 .bg-layer {
@@ -163,9 +197,11 @@ button { font-family: inherit; }
 }
 
 /* scroll progress */
+
 #progress {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     height: 2px;
     width: 0;
     z-index: 600;
@@ -202,12 +238,18 @@ button { font-family: inherit; }
     backdrop-filter: blur(8px);
     transition: 0.4s;
 }
-.music-btn:hover { background: rgba(138,95,76,0.85); }
-.music-btn.playing { animation: spin-glow 4s linear infinite; }
+
+.music-btn:hover {
+    background: rgba(138,95,76,0.85);
+}
+
+.music-btn.playing {
+    animation: spin-glow 4s linear infinite;
+}
 
 @keyframes spin-glow {
     0%,100% { box-shadow: 0 0 0 0 rgba(201,167,143,0.55); }
-    50%     { box-shadow: 0 0 0 9px rgba(201,167,143,0); }
+    50% { box-shadow: 0 0 0 9px rgba(201,167,143,0); }
 }
 
 /* ==============================
@@ -224,7 +266,6 @@ button { font-family: inherit; }
     position: relative;
 }
 
-/* frosted ivory card */
 .content {
     position: relative;
     width: 100%;
@@ -238,7 +279,6 @@ button { font-family: inherit; }
     -webkit-backdrop-filter: blur(7px);
 }
 
-/* inner fine frame */
 .content::before {
     content: "";
     position: absolute;
@@ -247,7 +287,6 @@ button { font-family: inherit; }
     pointer-events: none;
 }
 
-/* corner ornaments */
 .corner {
     position: absolute;
     width: 34px;
@@ -255,10 +294,11 @@ button { font-family: inherit; }
     border: 1.5px solid var(--mocha-deep);
     pointer-events: none;
 }
-.corner.tl { top: -1px;    left: -1px;  border-right: none; border-bottom: none; }
-.corner.tr { top: -1px;    right: -1px; border-left: none;  border-bottom: none; }
-.corner.bl { bottom: -1px; left: -1px;  border-right: none; border-top: none; }
-.corner.br { bottom: -1px; right: -1px; border-left: none;  border-top: none; }
+
+.corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
 .small-heading {
     font-family: 'Cinzel', serif;
@@ -270,7 +310,9 @@ button { font-family: inherit; }
     margin-bottom: 22px;
 }
 
-h1, h2, h3 { font-weight: 400; }
+h1, h2, h3 {
+    font-weight: 400;
+}
 
 .main-title {
     font-family: 'Cormorant Garamond', serif;
@@ -282,12 +324,13 @@ h1, h2, h3 { font-weight: 400; }
     margin-bottom: 20px;
     background: linear-gradient(115deg, #3a2418 0%, #6a4535 50%, #3a2418 100%);
     -webkit-background-clip: text;
-            background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
 }
 
 /* ornamental divider */
+
 .ornament {
     display: flex;
     align-items: center;
@@ -296,6 +339,7 @@ h1, h2, h3 { font-weight: 400; }
     margin: 28px auto;
     max-width: 280px;
 }
+
 .ornament::before,
 .ornament::after {
     content: "";
@@ -303,7 +347,11 @@ h1, h2, h3 { font-weight: 400; }
     height: 1px;
     background: linear-gradient(to right, transparent, var(--mocha));
 }
-.ornament::after { transform: scaleX(-1); }
+
+.ornament::after {
+    transform: scaleX(-1);
+}
+
 .ornament span {
     color: var(--mocha-deep);
     font-size: 15px;
@@ -311,15 +359,18 @@ h1, h2, h3 { font-weight: 400; }
 }
 
 /* ==============================
-   OPENING PAGE (page 1) – no border lines
+   OPENING PAGE
 ============================== */
 
 #page1 .content {
     border: none;
     box-shadow: 0 22px 60px rgba(43,26,18,0.30);
 }
+
 #page1 .content::before,
-#page1 .corner { display: none; }
+#page1 .corner {
+    display: none;
+}
 
 .bismillah {
     font-family: 'Amiri', serif;
@@ -363,6 +414,7 @@ h1, h2, h3 { font-weight: 400; }
     letter-spacing: 5px;
     color: var(--mocha-deep);
 }
+
 .scroll-hint i {
     display: block;
     width: 1px;
@@ -371,9 +423,10 @@ h1, h2, h3 { font-weight: 400; }
     background: linear-gradient(to bottom, var(--mocha-deep), transparent);
     animation: drip 2.2s ease-in-out infinite;
 }
+
 @keyframes drip {
-    0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
-    60%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    60% { transform: scaleY(1); transform-origin: top; opacity: 1; }
     100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
 }
 
@@ -381,7 +434,9 @@ h1, h2, h3 { font-weight: 400; }
    SECTION 2 - FAMILIES
 ============================== */
 
-.family-block { margin: 6px 0; }
+.family-block {
+    margin: 6px 0;
+}
 
 .family-name {
     font-family: 'Cormorant Garamond', serif;
@@ -444,11 +499,13 @@ h1, h2, h3 { font-weight: 400; }
     color: var(--ink);
 }
 
-.detail-box { margin: 20px auto 0; }
+.detail-box {
+    margin: 20px auto 0;
+}
 
-/* Reveal the date */
-
-.reveal-wrap { margin-top: 8px; }
+.reveal-wrap {
+    margin-top: 8px;
+}
 
 #revealBtn {
     cursor: pointer;
@@ -461,7 +518,9 @@ h1, h2, h3 { font-weight: 400; }
     overflow: hidden;
 }
 
-#revealBtn.hidden { display: none; }
+#revealBtn.hidden {
+    display: none;
+}
 
 /* Countdown */
 
@@ -516,6 +575,7 @@ h1, h2, h3 { font-weight: 400; }
     transition: color 0.45s;
     z-index: 0;
 }
+
 .btn::before {
     content: "";
     position: absolute;
@@ -525,8 +585,14 @@ h1, h2, h3 { font-weight: 400; }
     transition: transform 0.45s ease;
     z-index: -1;
 }
-.btn:hover { color: var(--ivory); }
-.btn:hover::before { transform: translateY(0); }
+
+.btn:hover {
+    color: var(--ivory);
+}
+
+.btn:hover::before {
+    transform: translateY(0);
+}
 
 /* ==============================
    SECTION 4 - VENUE
@@ -571,55 +637,63 @@ h1, h2, h3 { font-weight: 400; }
 }
 
 /* ==============================
-   MOBILE (Android)
+   MOBILE
 ============================== */
 
 @media (max-width: 600px) {
+
     .content::before {
         inset: -14px -8px;
         border-radius: 50% 50% 18px 18px / 10% 10% 3% 3%;
         background: rgba(248, 238, 220, 0.42);
     }
 
+    .section {
+        min-height: 100svh;
+        padding: 48px 12px;
+    }
 
-    .section { min-height: 100svh; padding: 48px 12px; }
-    .content { padding: 40px 18px; }
+    .content {
+        padding: 40px 18px;
+    }
 
-    .bismillah        { font-size: 25px; }
-    .small-heading    { font-size: 9px; letter-spacing: 4px; margin-bottom: 16px; }
-    .main-title       { font-size: 26px; margin-bottom: 14px; }
-    .invitation-text  { font-size: 16px !important; line-height: 1.7; }
-    .couple-names     { font-size: 52px; }
-    .weds             { font-size: 12px; letter-spacing: 6px; }
-    .family-name      { font-size: 30px; }
-    .family-text      { font-size: 16px; line-height: 1.6; }
-    .date-num         { font-size: 54px; }
-    .date-side        { font-size: 9px; letter-spacing: 2px; min-width: 64px; }
-    .date-display     { gap: 14px; }
-    .date-month       { font-size: 12px; letter-spacing: 6px; }
-    .detail-value     { font-size: 20px; }
-    .count-item       { width: 66px; }
-    .count-number     { font-size: 22px; }
-    .count-label      { font-size: 7px; }
-    .btn              { font-size: 8px; padding: 12px 24px; letter-spacing: 3px; }
-    .venue-name       { font-size: 24px; letter-spacing: 3px; }
-    .venue-address    { font-size: 16px; line-height: 1.7; }
-    .closing-names    { font-size: 44px; }
-    .closing-message  { font-size: 17px; line-height: 1.7; }
-    .ornament         { margin: 20px auto; }
-    .tap-text         { font-size: 10px; padding: 11px 26px; }
-    .music-btn        { top: 12px; right: 12px; width: 40px; height: 40px; }
+    .bismillah { font-size: 25px; }
+    .small-heading { font-size: 9px; letter-spacing: 4px; margin-bottom: 16px; }
+    .main-title { font-size: 26px; margin-bottom: 14px; }
+    .invitation-text { font-size: 16px !important; line-height: 1.7; }
+    .couple-names { font-size: 52px; }
+    .weds { font-size: 12px; letter-spacing: 6px; }
+    .family-name { font-size: 30px; }
+    .family-text { font-size: 16px; line-height: 1.6; }
+    .date-num { font-size: 54px; }
+    .date-side { font-size: 9px; letter-spacing: 2px; min-width: 64px; }
+    .date-display { gap: 14px; }
+    .date-month { font-size: 12px; letter-spacing: 6px; }
+    .detail-value { font-size: 20px; }
+    .count-item { width: 66px; }
+    .count-number { font-size: 22px; }
+    .count-label { font-size: 7px; }
+    .btn { font-size: 8px; padding: 12px 24px; letter-spacing: 3px; }
+    .venue-name { font-size: 24px; letter-spacing: 3px; }
+    .venue-address { font-size: 16px; line-height: 1.7; }
+    .closing-names { font-size: 44px; }
+    .closing-message { font-size: 17px; line-height: 1.7; }
+    .ornament { margin: 20px auto; }
+    .tap-text { font-size: 10px; padding: 11px 26px; }
+    .music-btn { top: 12px; right: 12px; width: 40px; height: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
-
 /* =========================================
-   UPDATED WARM MOCHA PALETTE FOR THE NEW BACKGROUND
-   Keeps the background image visible and removes all content frames.
+   UPDATED WARM MOCHA PALETTE
 ========================================= */
+
 :root {
     --espresso: #2b1a12;
     --espresso-2: #3a2418;
@@ -630,6 +704,7 @@ h1, h2, h3 { font-weight: 400; }
     --ivory-2: #e8d5bc;
     --ink: #352116;
     --ink-soft: #513727;
+
     --mocha-gradient: linear-gradient(
         115deg,
         #3b2519 0%,
@@ -639,10 +714,12 @@ h1, h2, h3 { font-weight: 400; }
         #3b2519 78%,
         #a17b58 100%
     );
+
     --ivory-gradient: linear-gradient(120deg, #3b2519 0%, #80583d 50%, #3b2519 100%);
 }
 
-/* Let the uploaded silk background remain the main visual. */
+/* Background image and content */
+
 .content {
     position: relative;
     isolation: isolate;
@@ -653,7 +730,6 @@ h1, h2, h3 { font-weight: 400; }
     -webkit-backdrop-filter: none !important;
 }
 
-/* A light, softly curved champagne arch behind the content — not a square card. */
 .content::before {
     content: "";
     display: block !important;
@@ -669,18 +745,17 @@ h1, h2, h3 { font-weight: 400; }
     -webkit-backdrop-filter: blur(2px);
 }
 
-/* Keep the same soft arch behind the opening invitation page as well. */
 #page1 .content::before {
     display: block !important;
 }
 
-/* Keep all four decorative corner pieces removed. */
 .corner {
     display: none !important;
     content: none !important;
 }
 
-/* The word separating the two family details. */
+/* Family divider */
+
 .with-divider {
     margin: 12px auto 14px;
     color: #684632;
@@ -693,7 +768,8 @@ h1, h2, h3 { font-weight: 400; }
     text-shadow: 0 1px 7px rgba(248, 237, 218, 0.3);
 }
 
-/* Deep espresso text gives clear contrast against the champagne background. */
+/* Text colours */
+
 .small-heading,
 .weds,
 .scroll-hint,
@@ -719,7 +795,8 @@ h1, h2, h3 { font-weight: 400; }
     color: transparent !important;
 }
 
-/* Keep both couple names and family names highlighted in a warm metallic mocha. */
+/* Couple and family names */
+
 .gold-text {
     background: linear-gradient(
         115deg,
@@ -730,6 +807,7 @@ h1, h2, h3 { font-weight: 400; }
         #3b2519 82%,
         #b28b63 100%
     ) !important;
+
     background-size: 240% auto !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
@@ -738,7 +816,8 @@ h1, h2, h3 { font-weight: 400; }
     filter: drop-shadow(0 2px 5px rgba(53, 33, 22, 0.18));
 }
 
-/* Subtle mocha details instead of pale or white panels. */
+/* Button colours */
+
 .date-side {
     border-top-color: rgba(104, 70, 50, 0.55) !important;
     border-bottom-color: rgba(104, 70, 50, 0.55) !important;
@@ -755,40 +834,148 @@ h1, h2, h3 { font-weight: 400; }
     background: #684632 !important;
 }
 
+/* Background image lift */
 
-/* Slightly lift the existing background image without changing the image itself. */
-.bg-layer::after { content:""; position:absolute; inset:0; background:rgba(255,246,231,.10); pointer-events:none; }
-
-/* Plain espresso-brown wedding-date scratch card. */
-.scratch-stage { position:relative; width:100%; max-width:430px; min-height:220px; margin:12px auto 0; overflow:hidden; isolation:isolate; }
-.scratch-underlay { position:relative; z-index:0; min-height:220px; padding:8px 0 12px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.scratch-underlay .date-display { margin:10px 0 8px; }
-.scratch-underlay .date-month { margin-bottom:12px; }
-.scratch-underlay .detail-box { margin-top:8px; }
-#scratchCanvas { position:absolute; z-index:2; inset:0; display:block; width:100%; height:100%; cursor:crosshair; touch-action:none; border:0; border-radius:0; box-shadow:none; transition:opacity 700ms ease; }
-.scratch-instruction { position:absolute; z-index:3; inset:0; display:flex; align-items:center; justify-content:center; padding:20px; pointer-events:none; color:#f8f1e4; font-family:'Cinzel',serif; font-size:10px; font-weight:600; letter-spacing:2.5px; line-height:1.8; text-transform:uppercase; text-align:center; text-shadow:none; transition:opacity 350ms ease; }
-#countdownReveal { display:none; opacity:0; transform:translateY(14px); }
-#countdownReveal.countdown-visible { display:block; animation:countdownEnter 850ms ease forwards; }
-@keyframes countdownEnter { to { opacity:1; transform:translateY(0); } }
-@media (max-width:600px) {
- .scratch-stage,.scratch-underlay { min-height:190px; }
- .scratch-stage { width:100%; max-width:100%; margin-top:8px; }
- .scratch-underlay .date-display { gap:12px; margin-top:8px; }
- .scratch-instruction { font-size:9px; letter-spacing:1.8px; padding:14px; }
+.bg-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,246,231,.10);
+    pointer-events: none;
 }
-@media (prefers-reduced-motion:reduce) { #scratchCanvas,.scratch-instruction,#countdownReveal { transition:none!important; animation:none!important; } }
 
+/* ==============================
+   ESPRESSO BROWN SCRATCH CARD
+============================== */
 
+.scratch-stage {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    min-height: 220px;
+    margin: 12px auto 0;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.scratch-underlay {
+    position: relative;
+    z-index: 0;
+    min-height: 220px;
+    padding: 8px 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.scratch-underlay .date-display {
+    margin: 10px 0 8px;
+}
+
+.scratch-underlay .date-month {
+    margin-bottom: 12px;
+}
+
+.scratch-underlay .detail-box {
+    margin-top: 8px;
+}
+
+#scratchCanvas {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transition: opacity 700ms ease;
+}
+
+.scratch-instruction {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    pointer-events: none;
+    color: #f8f1e4;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    line-height: 1.8;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: none;
+    transition: opacity 350ms ease;
+}
+
+#countdownReveal {
+    display: none;
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+#countdownReveal.countdown-visible {
+    display: block;
+    animation: countdownEnter 850ms ease forwards;
+}
+
+@keyframes countdownEnter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width:600px) {
+    .scratch-stage,
+    .scratch-underlay {
+        min-height: 190px;
+    }
+
+    .scratch-stage {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 8px;
+    }
+
+    .scratch-underlay .date-display {
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    .scratch-instruction {
+        font-size: 9px;
+        letter-spacing: 1.8px;
+        padding: 14px;
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    #scratchCanvas,
+    .scratch-instruction,
+    #countdownReveal {
+        transition: none !important;
+        animation: none !important;
+    }
+}
 
 /* =========================================
    FINAL TEXT VISIBILITY UPDATE
-   Darker, stronger typography with selected true-black accents.
 ========================================= */
+
 .content {
     text-shadow: none;
 }
 
-/* Main readable copy: deeper espresso and a stronger weight. */
 .invitation-text,
 .family-text,
 .venue-address,
@@ -798,7 +985,6 @@ h1, h2, h3 { font-weight: 400; }
     text-shadow: 0 1px 2px rgba(255, 248, 235, 0.55) !important;
 }
 
-/* Selected wording in near-black to create clear visual emphasis. */
 .small-heading,
 .main-title,
 .weds,
@@ -814,7 +1000,6 @@ h1, h2, h3 { font-weight: 400; }
     text-shadow: 0 1px 2px rgba(255, 248, 235, 0.48);
 }
 
-/* Keep the couple and family names elegant, but deepen and strengthen them. */
 .couple-names,
 .family-name,
 .closing-names,
@@ -824,27 +1009,23 @@ h1, h2, h3 { font-weight: 400; }
     filter: drop-shadow(0 2px 4px rgba(35, 20, 12, 0.28));
 }
 
-/* Ensure the invitation title is genuinely black rather than a faint gradient. */
 .main-title {
     background: none !important;
     -webkit-text-fill-color: #17110d !important;
     color: #17110d !important;
 }
 
-/* Keep the instruction clean and visible on the espresso scratch surface. */
 .scratch-instruction {
     color: #f8f1e4 !important;
     font-weight: 700 !important;
     text-shadow: none !important;
 }
 
-/* Slightly stronger weight on small labels and controls too. */
 .btn,
 .tap-text {
     font-weight: 700 !important;
 }
 
-/* Make the venue name a solid, highly visible espresso-black (not the gold gradient). */
 #page4 .venue-name {
     background: none !important;
     -webkit-background-clip: initial !important;
@@ -862,9 +1043,7 @@ h1, h2, h3 { font-weight: 400; }
 
 <div id="progress"></div>
 
-<!-- ==============================
-     OPENING COVER
-============================== -->
+<!-- OPENING COVER -->
 
 <div id="cover" onclick="openInvitation()">
     <img src="envelope-cover.png" alt="Wedding Invitation Cover">
@@ -875,34 +1054,32 @@ h1, h2, h3 { font-weight: 400; }
     </div>
 </div>
 
-<!-- ==============================
-     BACKGROUND LAYERS
-============================== -->
+<!-- BACKGROUND -->
 
 <div class="bg-layer"></div>
 <div class="bg-tint"></div>
 <canvas id="sparkles"></canvas>
 
-<!-- ==============================
-     MUSIC
-============================== -->
+<!-- MUSIC -->
 
 <audio id="weddingMusic" src="wedding-music.mp3" loop></audio>
 
 <button class="music-btn" id="musicButton" onclick="toggleMusic()"
         aria-label="Play or pause music" style="display:none;">♫</button>
 
-<!-- ==============================
-     MAIN WEBSITE
-============================== -->
+<!-- MAIN WEBSITE -->
 
 <main id="website">
 
     <!-- SECTION 1: INVITATION -->
+
     <section class="section" id="page1">
         <div class="content">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
 
             <div class="bismillah gold-text">
                 بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
@@ -924,15 +1101,19 @@ h1, h2, h3 { font-weight: 400; }
             </p>
 
             <div class="scroll-hint">SCROLL TO EXPLORE<i></i></div>
+
         </div>
     </section>
 
-
     <!-- SECTION 2: FAMILIES -->
+
     <section class="section" id="page2">
         <div class="content">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
 
             <h2 class="main-title">Wedding Invitation</h2>
 
@@ -960,15 +1141,19 @@ h1, h2, h3 { font-weight: 400; }
                     &amp; Mrs. Nadeera Thaj
                 </p>
             </div>
+
         </div>
     </section>
 
-
     <!-- SECTION 3: WEDDING DETAILS -->
+
     <section class="section" id="page3">
         <div class="content">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
 
             <p class="small-heading">Save the Date</p>
 
@@ -977,6 +1162,7 @@ h1, h2, h3 { font-weight: 400; }
             <div class="ornament"><span>✦</span></div>
 
             <div class="reveal-wrap">
+
                 <p class="invitation-text" id="revealHint">A day we have been waiting for…</p>
 
                 <button class="btn" id="revealBtn" onclick="revealDate()">
@@ -984,41 +1170,78 @@ h1, h2, h3 { font-weight: 400; }
                 </button>
 
                 <div id="dateReveal">
+
                     <div class="scratch-stage" id="scratchStage">
+
                         <div class="scratch-underlay" id="scratchUnderlay">
+
                             <div class="date-display">
                                 <div class="date-side">SUNDAY</div>
                                 <div class="date-num gold-text">13</div>
                                 <div class="date-side">2026</div>
                             </div>
+
                             <div class="date-month gold-text">DECEMBER</div>
+
                             <div class="detail-box">
                                 <p class="detail-value">11:00 AM – 12:00 PM</p>
                             </div>
+
                         </div>
+
                         <canvas id="scratchCanvas" aria-label="Scratch to reveal the wedding date"></canvas>
-                        <p class="scratch-instruction" id="scratchInstruction">Scratch here to reveal the date</p>
+
+                        <p class="scratch-instruction" id="scratchInstruction">
+                            Scratch here to reveal the date
+                        </p>
+
                     </div>
+
                     <div id="countdownReveal">
-                        <p class="small-heading" style="margin-top:38px; margin-bottom:0;">Counting down to forever</p>
+
+                        <p class="small-heading" style="margin-top:38px; margin-bottom:0;">
+                            Counting down to forever
+                        </p>
+
                         <div class="countdown">
-                            <div class="count-item"><span class="count-number" id="days">00</span><span class="count-label">DAYS</span></div>
-                            <div class="count-item"><span class="count-number" id="hours">00</span><span class="count-label">HOURS</span></div>
-                            <div class="count-item"><span class="count-number" id="minutes">00</span><span class="count-label">MINUTES</span></div>
-                            <div class="count-item"><span class="count-number" id="seconds">00</span><span class="count-label">SECONDS</span></div>
+
+                            <div class="count-item">
+                                <span class="count-number" id="days">00</span>
+                                <span class="count-label">DAYS</span>
+                            </div>
+
+                            <div class="count-item">
+                                <span class="count-number" id="hours">00</span>
+                                <span class="count-label">HOURS</span>
+                            </div>
+
+                            <div class="count-item">
+                                <span class="count-number" id="minutes">00</span>
+                                <span class="count-label">MINUTES</span>
+                            </div>
+
+                            <div class="count-item">
+                                <span class="count-number" id="seconds">00</span>
+                                <span class="count-label">SECONDS</span>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-
     <!-- SECTION 4: VENUE -->
+
     <section class="section" id="page4">
         <div class="content">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
 
             <p class="small-heading">Join us for the celebration</p>
 
@@ -1038,15 +1261,19 @@ h1, h2, h3 { font-weight: 400; }
                target="_blank" rel="noopener noreferrer">
                 VIEW LOCATION
             </a>
+
         </div>
     </section>
 
-
     <!-- SECTION 5: CLOSING -->
+
     <section class="section" id="page5">
         <div class="content">
-            <span class="corner tl"></span><span class="corner tr"></span>
-            <span class="corner bl"></span><span class="corner br"></span>
+
+            <span class="corner tl"></span>
+            <span class="corner tr"></span>
+            <span class="corner bl"></span>
+            <span class="corner br"></span>
 
             <p class="small-heading">A beautiful new beginning</p>
 
@@ -1064,29 +1291,36 @@ h1, h2, h3 { font-weight: 400; }
             <div class="ornament"><span>❖</span></div>
 
             <h2 class="main-title" style="margin-bottom:0;">Thank You</h2>
+
         </div>
     </section>
 
 </main>
 
-
 <script>
 
 /* ==============================
-   ELEGANT TEXT REVEAL (per page)
+   ELEGANT TEXT REVEAL
 ============================== */
 
 function revealSection(section, extraDelay) {
     if (typeof gsap === "undefined") return;
 
-    const card  = section.querySelector(".content");
+    const card = section.querySelector(".content");
     const items = card.querySelectorAll(":scope > *:not(.corner)");
     const heads = card.querySelectorAll(".small-heading");
     const d = extraDelay || 0;
 
     gsap.fromTo(card,
         { opacity: 0, y: 34 },
-        { opacity: 1, y: 0, duration: 1.2, delay: d, ease: "power3.out" });
+        {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            delay: d,
+            ease: "power3.out"
+        }
+    );
 
     gsap.from(items, {
         opacity: 0,
@@ -1098,7 +1332,6 @@ function revealSection(section, extraDelay) {
         clearProps: "opacity,transform"
     });
 
-    // small headings "settle" from wide letter-spacing
     gsap.from(heads, {
         letterSpacing: "0.55em",
         duration: 1.8,
@@ -1108,7 +1341,6 @@ function revealSection(section, extraDelay) {
     });
 }
 
-
 /* ==============================
    OPEN INVITATION
 ============================== */
@@ -1117,6 +1349,7 @@ let invitationOpened = false;
 
 function openInvitation() {
     if (invitationOpened) return;
+
     invitationOpened = true;
 
     const cover = document.getElementById("cover");
@@ -1126,18 +1359,23 @@ function openInvitation() {
 
     website.style.display = "block";
     musicButton.style.display = "block";
+
     window.scrollTo(0, 0);
 
     if (typeof gsap !== "undefined") {
+
         gsap.to(cover, {
             opacity: 0,
             scale: 1.08,
             duration: 1.4,
             ease: "power2.inOut",
-            onComplete: () => { cover.style.display = "none"; }
+            onComplete: () => {
+                cover.style.display = "none";
+            }
         });
 
         revealSection(document.getElementById("page1"), 0.4);
+
     } else {
         cover.style.display = "none";
     }
@@ -1150,27 +1388,32 @@ function openInvitation() {
     });
 }
 
-
 /* ==============================
    MUSIC
 ============================== */
 
 function toggleMusic() {
+
     const music = document.getElementById("weddingMusic");
     const button = document.getElementById("musicButton");
 
     if (music.paused) {
+
         music.play().then(() => {
             button.textContent = "♫";
             button.classList.add("playing");
-        }).catch(() => { button.textContent = "▶"; });
+        }).catch(() => {
+            button.textContent = "▶";
+        });
+
     } else {
+
         music.pause();
         button.textContent = "▶";
         button.classList.remove("playing");
+
     }
 }
-
 
 /* ==============================
    REVEAL THE DATE
@@ -1186,37 +1429,58 @@ let scratchCheckQueued = false;
 let countdownInterval = null;
 
 function revealDate() {
+
     const btn = document.getElementById("revealBtn");
     const hint = document.getElementById("revealHint");
     const box = document.getElementById("dateReveal");
+
     box.style.display = "block";
     btn.classList.add("hidden");
     hint.style.display = "none";
 
     if (typeof gsap !== "undefined") {
-        gsap.from(box, { opacity: 0, y: 12, duration: 0.8, ease: "power2.out" });
+        gsap.from(box, {
+            opacity: 0,
+            y: 12,
+            duration: 0.8,
+            ease: "power2.out"
+        });
     }
+
     if (!scratchInitialized) {
         initializeScratchCard();
         scratchInitialized = true;
     }
 }
 
+/* ==============================
+   SCRATCH CARD
+============================== */
+
 function initializeScratchCard() {
+
     scratchCanvas = document.getElementById("scratchCanvas");
+
     if (!scratchCanvas) return;
 
     const rect = document.getElementById("scratchStage").getBoundingClientRect();
     const dpr = Math.max(1, window.devicePixelRatio || 1);
+
     scratchCanvas.width = Math.round(rect.width * dpr);
     scratchCanvas.height = Math.round(rect.height * dpr);
-    scratchContext = scratchCanvas.getContext("2d", { willReadFrequently: true });
+
+    scratchContext = scratchCanvas.getContext("2d", {
+        willReadFrequently: true
+    });
+
     scratchContext.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const width = rect.width, height = rect.height;
-    // A single flat espresso-brown surface: no gradient, pattern, frame or border.
+    const width = rect.width;
+    const height = rect.height;
+
     scratchContext.fillStyle = "#2b1a12";
     scratchContext.fillRect(0, 0, width, height);
+
     scratchCanvas.style.opacity = "1";
     scratchCanvas.style.pointerEvents = "auto";
 
@@ -1228,61 +1492,96 @@ function initializeScratchCard() {
 }
 
 function getScratchPoint(event) {
+
     const rect = scratchCanvas.getBoundingClientRect();
-    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    };
 }
 
 function scratchPointerDown(event) {
+
     if (scratchFinished) return;
+
     event.preventDefault();
+
     scratchIsActive = true;
     scratchLastPoint = getScratchPoint(event);
-    if (scratchCanvas.setPointerCapture) scratchCanvas.setPointerCapture(event.pointerId);
+
+    if (scratchCanvas.setPointerCapture) {
+        scratchCanvas.setPointerCapture(event.pointerId);
+    }
+
     eraseScratchAt(scratchLastPoint, scratchLastPoint);
 }
 
 function scratchPointerMove(event) {
+
     if (!scratchIsActive || scratchFinished) return;
+
     event.preventDefault();
+
     const point = getScratchPoint(event);
+
     eraseScratchAt(scratchLastPoint, point);
+
     scratchLastPoint = point;
+
     scheduleScratchCheck();
 }
 
 function scratchPointerUp(event) {
+
     if (!scratchIsActive) return;
+
     scratchIsActive = false;
     scratchLastPoint = null;
-    if (event && scratchCanvas.hasPointerCapture &&
-        scratchCanvas.hasPointerCapture(event.pointerId)) {
+
+    if (
+        event &&
+        scratchCanvas.hasPointerCapture &&
+        scratchCanvas.hasPointerCapture(event.pointerId)
+    ) {
         scratchCanvas.releasePointerCapture(event.pointerId);
     }
+
     checkScratchProgress();
 }
 
 function eraseScratchAt(from, to) {
+
     if (!scratchContext) return;
+
     const rect = scratchCanvas.getBoundingClientRect();
     const brushSize = Math.max(30, Math.min(42, rect.width * 0.095));
+
     scratchContext.save();
+
     scratchContext.globalCompositeOperation = "destination-out";
     scratchContext.lineCap = "round";
     scratchContext.lineJoin = "round";
     scratchContext.lineWidth = brushSize;
+
     scratchContext.beginPath();
     scratchContext.moveTo(from.x, from.y);
     scratchContext.lineTo(to.x, to.y);
     scratchContext.stroke();
+
     scratchContext.beginPath();
     scratchContext.arc(to.x, to.y, brushSize / 2, 0, Math.PI * 2);
     scratchContext.fill();
+
     scratchContext.restore();
 }
 
 function scheduleScratchCheck() {
+
     if (scratchCheckQueued) return;
+
     scratchCheckQueued = true;
+
     requestAnimationFrame(() => {
         scratchCheckQueued = false;
         checkScratchProgress();
@@ -1290,36 +1589,63 @@ function scheduleScratchCheck() {
 }
 
 function checkScratchProgress() {
+
     if (scratchFinished || !scratchContext || !scratchCanvas) return;
-    const pixels = scratchContext.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
-    let checked = 0, cleared = 0;
+
+    const pixels = scratchContext.getImageData(
+        0,
+        0,
+        scratchCanvas.width,
+        scratchCanvas.height
+    ).data;
+
+    let checked = 0;
+    let cleared = 0;
+
     const stride = 4 * 16;
+
     for (let i = 3; i < pixels.length; i += stride) {
+
         checked++;
-        if (pixels[i] < 40) cleared++;
+
+        if (pixels[i] < 40) {
+            cleared++;
+        }
     }
-    if (checked && cleared / checked >= 0.48) completeScratchReveal();
+
+    if (checked && cleared / checked >= 0.48) {
+        completeScratchReveal();
+    }
 }
 
 function completeScratchReveal() {
+
     if (scratchFinished) return;
+
     scratchFinished = true;
     scratchIsActive = false;
 
     const canvas = document.getElementById("scratchCanvas");
     const instruction = document.getElementById("scratchInstruction");
     const countdown = document.getElementById("countdownReveal");
+
     canvas.style.opacity = "0";
     canvas.style.pointerEvents = "none";
+
     instruction.style.opacity = "0";
+
     window.setTimeout(() => {
         canvas.style.display = "none";
         instruction.style.display = "none";
     }, 750);
 
     updateCountdown();
+
     countdown.classList.add("countdown-visible");
-    if (!countdownInterval) countdownInterval = window.setInterval(updateCountdown, 1000);
+
+    if (!countdownInterval) {
+        countdownInterval = window.setInterval(updateCountdown, 1000);
+    }
 }
 
 /* ==============================
@@ -1327,6 +1653,7 @@ function completeScratchReveal() {
 ============================== */
 
 function updateCountdown() {
+
     const weddingDate = new Date("2026-12-13T11:00:00+05:30").getTime();
     const difference = weddingDate - Date.now();
 
@@ -1334,62 +1661,82 @@ function updateCountdown() {
         document.getElementById(id).textContent = String(v).padStart(2, "0");
 
     if (difference <= 0) {
-        set("days", 0); set("hours", 0); set("minutes", 0); set("seconds", 0);
+
+        set("days", 0);
+        set("hours", 0);
+        set("minutes", 0);
+        set("seconds", 0);
+
         return;
     }
 
-    set("days",    Math.floor(difference / 86400000));
-    set("hours",   Math.floor(difference / 3600000) % 24);
+    set("days", Math.floor(difference / 86400000));
+    set("hours", Math.floor(difference / 3600000) % 24);
     set("minutes", Math.floor(difference / 60000) % 60);
     set("seconds", Math.floor(difference / 1000) % 60);
 }
-
-
-
 
 /* ==============================
    SCROLL REVEAL + PROGRESS BAR
 ============================== */
 
 if (typeof gsap !== "undefined") {
+
     const observer = new IntersectionObserver((entries) => {
+
         entries.forEach((entry) => {
+
             if (entry.isIntersecting && entry.target.id !== "page1") {
+
                 revealSection(entry.target, 0);
+
                 observer.unobserve(entry.target);
             }
+
         });
-    }, { threshold: 0.15 });
+
+    }, {
+        threshold: 0.15
+    });
 
     document.querySelectorAll(".section").forEach(s => observer.observe(s));
 }
 
 window.addEventListener("scroll", () => {
+
     const h = document.documentElement.scrollHeight - innerHeight;
+
     document.getElementById("progress").style.width =
         (h > 0 ? (scrollY / h) * 100 : 0) + "%";
-}, { passive: true });
 
+}, {
+    passive: true
+});
 
 /* ==============================
-   SPARKLES (soft golden dust)
+   SPARKLES
 ============================== */
 
 (function () {
+
     const canvas = document.getElementById("sparkles");
     const ctx = canvas.getContext("2d");
+
     let w, h, dots = [];
 
     function resize() {
         w = canvas.width = innerWidth;
         h = canvas.height = innerHeight;
     }
+
     resize();
+
     addEventListener("resize", resize);
 
     const count = innerWidth < 600 ? 28 : 55;
 
     for (let i = 0; i < count; i++) {
+
         dots.push({
             x: Math.random() * innerWidth,
             y: Math.random() * innerHeight,
@@ -1398,27 +1745,44 @@ window.addEventListener("scroll", () => {
             d: Math.random() * Math.PI * 2,
             a: Math.random() * 0.6 + 0.3
         });
+
     }
 
     function draw() {
+
         ctx.clearRect(0, 0, w, h);
+
         dots.forEach(p => {
+
             p.y -= p.s;
             p.d += 0.01;
             p.x += Math.sin(p.d) * 0.3;
-            if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w; }
+
+            if (p.y < -5) {
+                p.y = h + 5;
+                p.x = Math.random() * w;
+            }
 
             const tw = (Math.sin(p.d * 3) + 1) / 2;
+
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(214,178,128," + (p.a * (0.35 + tw * 0.65)) + ")";
+
+            ctx.fillStyle =
+                "rgba(214,178,128," + (p.a * (0.35 + tw * 0.65)) + ")";
+
             ctx.shadowBlur = 8;
             ctx.shadowColor = "rgba(196,150,100,0.9)";
+
             ctx.fill();
+
         });
+
         requestAnimationFrame(draw);
     }
+
     draw();
+
 })();
 
 </script>
